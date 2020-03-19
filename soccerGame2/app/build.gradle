@@ -63,4 +63,5 @@ dependencies {
 
 // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    implementation 'com.android.volley:volley:1.1.1'
 }
