@@ -8,6 +8,8 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
+import java.io.IOException
+import java.util.ArrayList
 
 
 class Model() {
@@ -37,12 +39,12 @@ class Model() {
 
     fun parseLeagues(response : JSONObject, listener: Response.Listener<*>) {
         try {
-            val leaguesArray = response.getJSONArray("leagues")
-            val leagues : Array<League>
+            val leaguesJSONArray = response.getJSONArray("leagues")
+            val leaguesArray : MutableList<League> = ArrayList(7)
             val desiredLeagues = arrayOf(2021, 2015, 2020, 2019, 2003, 2017, 2014)
 
-            for (i in 0..leaguesArray.length()) {
-                val miObjetoJSON : JSONObject = leaguesArray.getJSONObject(i)
+            for (i in 0..leaguesJSONArray.length()) {
+                val miObjetoJSON : JSONObject = leaguesJSONArray.getJSONObject(i)
                 val id = miObjetoJSON.getInt("id")
                 if(desiredLeagues.contains(id)) {
                     val name = miObjetoJSON.getString("name")
@@ -53,29 +55,33 @@ class Model() {
                     val endDate = currentSeason.getString("endDate")
 
                     val league = League(id, name, countryName, startDate, endDate)
+                    leaguesArray.add(league)
                 }
-                //falta meterlas en el array
-                //llamar a la función de abajo
 
+                receiveSendLeagues(response, listener, leaguesArray.toTypedArray())
             }
+        }
+        catch (e: IOException) {
+
         }
     }
 
     //Esta es la final que añade a la base de datos
-    fun receiveSendLeagues(response: JSONObject, listener: Response.Listener<*>, league: League) {
+    fun receiveSendLeagues(response: JSONObject, listener: Response.Listener<*>, leagueArrayList: Array<League>) {
         object : AsyncTask<Void?, Void?, Void?>() {
             override fun doInBackground(vararg params: Void?): Void? {
                 TODO("Not yet implemented")
-                dao.insertLeague(league)
+                for(i in 0..leagueArrayList.size)
+                    dao.insertLeague(leagueArrayList[i])
                 return null
             }
 
             override fun onPostExecute(result: Void?) {
+                //creo que tengo que devolver el array.
                 super.onPostExecute(result)
 
             }
         }.execute()
-        //post execute
     }
 
 
