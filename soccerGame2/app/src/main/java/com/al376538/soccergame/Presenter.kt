@@ -33,7 +33,7 @@ class Presenter {
                    names.add(name)
                }
                //view.FillSpinner(names)
-               Log.d("qwer", "onResponse: $leagues")
+               //Log.d("qwer", "onResponse: $leagues")
            }, Response.ErrorListener { error ->
                //processError(error.message)
            })

@@ -23,7 +23,7 @@ class Model() {
     var queue : RequestQueue = TODO()
 
     private constructor(context: Context) : this() {
-        val database : DataBase = databaseBuilder(
+         val database : DataBase = databaseBuilder(
             context,
             DataBase ::class.java,
             "Database"
@@ -40,9 +40,9 @@ class Model() {
         return model
     }
 
-    fun getLeagues(listener: Response.Listener<ArrayList<League?>?>): Array<League> {
+    fun getLeagues(listener: Response.Listener<ArrayList<League?>?>): ArrayList<League> {
 
-        return dao.getLeagues()
+        return dao.getLeagues() as ArrayList<League>
     }
 
     fun collectLeagues(listener: Response.Listener<*>, error: Response.ErrorListener) {
