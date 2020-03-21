@@ -1,24 +1,47 @@
 package com.al376538.soccergame
 
+import android.content.Context
 import android.os.AsyncTask
+import androidx.room.Room.databaseBuilder
 import com.al376538.soccergame.database.DAO
+import com.al376538.soccergame.database.DataBase
 import com.al376538.soccergame.database.League
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import java.io.IOException
-import java.util.ArrayList
 
 
 class Model() {
 
-    val dao : DAO = TODO()
+    var dao : DAO = TODO()
 
-    val queue : RequestQueue = TODO()
+    private var model: Model
+    var queue : RequestQueue = TODO()
 
-    fun getLeagues(): Array<League> {
+    private constructor(context: Context) : this() {
+        val database : DataBase = databaseBuilder(
+            context,
+            DataBase ::class.java,
+            "Database"
+        ).build()
+
+        dao = database.Dao()
+        queue = Volley.newRequestQueue(context)
+    }
+
+    fun getInstanceModel(context: Context) : Model{
+        if(model == null) {
+           model = Model(context)
+        }
+        return model
+    }
+
+    fun getLeagues(listener: Response.Listener<ArrayList<League?>?>): Array<League> {
+
         return dao.getLeagues()
     }
 
@@ -31,13 +54,19 @@ class Model() {
             Response.ErrorListener { error ->
                 // TODO: Handle error
 
+                fun getHeaders(): Map<String, String> {
+                    val headers: MutableMap<String, String> =
+                        HashMap()
+                    headers["X-Auth-Token"] = "e781ecd280c04b36a5cd2bd5d5d142b9"
+                    return headers
+                }
             }
         )
         // Access the RequestQueue through your singleton class.
         queue.add(jsonObjectRequest)
         }
 
-    fun parseLeagues(response : JSONObject, listener: Response.Listener<*>) {
+    private fun parseLeagues(response: JSONObject, listener: Response.Listener<*>) {
         try {
             val leaguesJSONArray = response.getJSONArray("leagues")
             val leaguesArray : MutableList<League> = ArrayList(7)
@@ -67,7 +96,7 @@ class Model() {
     }
 
     //Esta es la final que añade a la base de datos
-    fun receiveSendLeagues(response: JSONObject, listener: Response.Listener<*>, leagueArrayList: Array<League>) {
+    private fun receiveSendLeagues(response: JSONObject, listener: Response.Listener<*>, leagueArrayList: Array<League>) {
         object : AsyncTask<Void?, Void?, Void?>() {
             override fun doInBackground(vararg params: Void?): Void? {
                 TODO("Not yet implemented")
