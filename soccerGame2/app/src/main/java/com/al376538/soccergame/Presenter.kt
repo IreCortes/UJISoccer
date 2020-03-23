@@ -18,22 +18,22 @@ class Presenter {
         getLeagues()
     }
 
-    fun getLeagues() {
+    private fun getLeagues() {
         model.getLeagues(
             Listener<ArrayList<League?>?>
             { response -> onLeagueAvailable(response)
             })
     }
 
-   fun onLeagueAvailable(leaguesList: ArrayList<League?>) {
+   private fun onLeagueAvailable(leaguesList: ArrayList<League?>) {
        if(leaguesList.isEmpty()) {
-           model.collectLeagues(Listener<ArrayList<League>> { leagues ->
+           model.collectLeagues(Listener<ArrayList<League?>> { leagues ->
                val names: ArrayList<String?> = ArrayList()
                for ((_, name) in leagues) {
                    names.add(name)
                }
                //view.FillSpinner(names)
-               //Log.d("qwer", "onResponse: $leagues")
+               Log.d("qwer", "onResponse: $leagues")
            }, Response.ErrorListener { error ->
                //processError(error.message)
            })

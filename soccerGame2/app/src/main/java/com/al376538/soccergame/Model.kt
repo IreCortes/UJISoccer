@@ -40,9 +40,15 @@ class Model() {
         return model
     }
 
-    fun getLeagues(listener: Response.Listener<ArrayList<League?>?>): ArrayList<League> {
-
-        return dao.getLeagues() as ArrayList<League>
+    fun getLeagues(listener: Response.Listener<ArrayList<League?>?>) {
+        object : AsyncTask<Void?, Void?, ArrayList<League?>?>() {
+            override fun onPostExecute(league: ArrayList<League?>?) {
+                listener.onResponse(league)
+            }
+            override fun doInBackground(vararg params: Void?): ArrayList<League?>? {
+                return ArrayList(dao.getLeagues())
+            }
+        }.execute()
     }
 
     fun collectLeagues(listener: Response.Listener<*>, error: Response.ErrorListener) {

@@ -9,7 +9,7 @@ import kotlin.collections.ArrayList
 @Dao
 interface DAO {
     @Query("SELECT * FROM League")
-    fun getLeagues(): List<League>
+    fun getLeagues(): List<League?>
 
     @Query("SELECT * FROM Team WHERE leagueID like :league")
     fun getTeams(league : Int): List<Team>
