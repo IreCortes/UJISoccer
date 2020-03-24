@@ -33,20 +33,23 @@ class Model() {
         queue = Volley.newRequestQueue(context)
     }
 
-    fun getInstanceModel(context: Context) : Model{
-        if(model == null) {
-           model = Model(context)
+    /*companion object {
+        fun  getInstanceModel(context: Context): Model {
+            if(this.model == null) {
+                model = Model(context)
+            }
+            return model
         }
-        return model
-    }
+    }*/
 
-    fun getLeagues(listener: Response.Listener<ArrayList<League?>?>) {
-        object : AsyncTask<Void?, Void?, ArrayList<League?>?>() {
-            override fun onPostExecute(league: ArrayList<League?>?) {
+
+    fun getLeagues(listener: Response.Listener<ArrayList<League>>) {
+        object : AsyncTask<Void?, Void?, ArrayList<League>>() {
+            override fun onPostExecute(league: ArrayList<League>) {
                 listener.onResponse(league)
             }
-            override fun doInBackground(vararg params: Void?): ArrayList<League?>? {
-                return ArrayList(dao.getLeagues())
+            override fun doInBackground(vararg params: Void?): ArrayList<League> {
+                return ArrayList(dao.getLeagues().requireNoNulls())
             }
         }.execute()
     }
