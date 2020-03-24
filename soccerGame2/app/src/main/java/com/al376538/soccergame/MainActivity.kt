@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         spinner = findViewById(R.id.spinner)
-        presenter = Presenter(this, getInstanceModel(context = applicationContext))
+        presenter = Presenter(this, instanceModel.getInstanceModel(context = applicationContext))
     }
 
     fun completeSpinner(leaguesNames: ArrayList<String?>) {

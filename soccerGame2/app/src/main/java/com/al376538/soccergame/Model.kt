@@ -15,14 +15,12 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class Model() {
+class Model {
 
-    var dao : DAO = TODO()
+    private lateinit var dao : DAO
+    private lateinit var queue : RequestQueue
 
-    private var model: Model
-    var queue : RequestQueue = TODO()
-
-    private constructor(context: Context) : this() {
+    internal constructor(context: Context) {
          val database : DataBase = databaseBuilder(
             context,
             DataBase ::class.java,
@@ -32,16 +30,6 @@ class Model() {
         dao = database.Dao()
         queue = Volley.newRequestQueue(context)
     }
-
-    /*companion object {
-        fun  getInstanceModel(context: Context): Model {
-            if(this.model == null) {
-                model = Model(context)
-            }
-            return model
-        }
-    }*/
-
 
     fun getLeagues(listener: Response.Listener<ArrayList<League>>) {
         object : AsyncTask<Void?, Void?, ArrayList<League>>() {
@@ -122,5 +110,17 @@ class Model() {
         }.execute()
     }
 
+
+}
+
+object instanceModel {
+    lateinit var model : Model
+    
+    fun  getInstanceModel(context: Context): Model {
+        if(this.model == null) {
+            model = Model(context)
+        }
+        return model
+    }
 
 }
