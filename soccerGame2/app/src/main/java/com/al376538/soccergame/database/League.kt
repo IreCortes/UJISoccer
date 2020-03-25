@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "League")
 data class League(
     @PrimaryKey()
-    var id: Int,
+    var idLeague: Int,
     var name: String?,
     var countryName: String?,
     var startDate: String?,
@@ -33,7 +33,7 @@ data class League(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeInt(idLeague)
         parcel.writeString(name)
         parcel.writeString(countryName)
         parcel.writeString(startDate)
@@ -53,4 +53,5 @@ data class League(
             return arrayOfNulls(size)
         }
     }
+
 }

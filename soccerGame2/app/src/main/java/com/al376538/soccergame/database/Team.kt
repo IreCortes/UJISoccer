@@ -7,14 +7,14 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Team", foreignKeys = [ForeignKey(entity = League::class,
-    parentColumns = arrayOf("id"),
+    parentColumns = arrayOf("idLeague"),
     childColumns = arrayOf("leagueID"),
     onDelete = ForeignKey.CASCADE
 )]
 )
 data class Team (
     @PrimaryKey()
-    var id: Int,
+    var idTeam: Int,
     var name: String?,
     var shortName: String?,
     var yearFoundation: Int,
@@ -33,15 +33,14 @@ data class Team (
         parcel.readString(),
         parcel.readString(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun toString(): String {
         return super.toString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeInt(idTeam)
         parcel.writeString(name)
         parcel.writeString(shortName)
         parcel.writeInt(yearFoundation)
