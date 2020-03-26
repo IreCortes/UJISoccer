@@ -18,6 +18,8 @@ import java.io.IOException
 object Model {
     private lateinit var dao: DAO
     private lateinit var queue: RequestQueue
+    private lateinit var leagueList : ArrayList<League>
+    //private lateinit var actualLeague: League
 
     private fun model(context: Context) {
         val database : DataBase = databaseBuilder(
@@ -36,10 +38,9 @@ object Model {
     }
 
     fun getLeagues(listener: Response.Listener<ArrayList<League>>) {
-        Log.d("Funciona", "He llegado a getLeaguesDelModelo")
+
         object : AsyncTask<Void?, Void?, ArrayList<League>>() {
             override fun doInBackground(vararg params: Void?): ArrayList<League> {
-                Log.d("Funciona", "He llegado a getLeaguesDelModelo y he entrado en el BackGround")
                 return ArrayList(dao.getLeagues().requireNoNulls())
 
             }
@@ -50,7 +51,7 @@ object Model {
     }
 
     fun collectLeagues(listener: Response.Listener<ArrayList<League>>) {
-        Log.d("Funciona", "estoy en collectLeagues")
+
         val jsonObjectRequest = object : JsonObjectRequest(
             Method.GET,
             "https://api.football-data.org/v2/competitions?plan=TIER_ONE",
@@ -73,12 +74,11 @@ object Model {
 
     private fun parseLeagues(response: JSONObject, listener: Response.Listener<ArrayList<League>>) {
         try {
-            Log.d("Funciona", "try el parseleagues")
             val leaguesJSONArray = response.getJSONArray("competitions")
             val leaguesArray : MutableList<League> = ArrayList(7)
             val desiredLeagues = arrayOf(2021, 2015, 2002, 2019, 2003, 2017, 2014)
 
-            for (i in 0..leaguesJSONArray.length()) {
+            for (i in 0 until leaguesJSONArray.length()) {
 
                 val miObjectJSON : JSONObject = leaguesJSONArray.getJSONObject(i)
                 val id = miObjectJSON.getInt("id")
@@ -95,27 +95,22 @@ object Model {
 
                     val league = League(id, name, countryName, startDate, endDate)
                     leaguesArray.add(league)
-                    Log.d("Name", league.toString())
 
                 }
+                leagueList = ArrayList(leaguesArray)
+                //actualLeague = leagueList[0]
                 receiveSendLeagues(response, listener, ArrayList(leaguesArray))
             }
         }
         catch (e: IOException) {
-            Log.d("Funciona", "catch del parseLeague")
         }
     }
 
     //Esta es la final que añade a la base de datos
     private fun receiveSendLeagues(response: JSONObject, listener: Response.Listener<ArrayList<League>>, leagueArrayList: ArrayList<League>) {
-        Log.d("Funciona", "estoy en receiveSendLeagues")
         object : AsyncTask<Void?, Void?, Void?>() {
             override fun doInBackground(vararg params: Void?): Void? {
-                TODO("Not yet implemented")
-                for(i in 0..leagueArrayList.size) {
-                    dao.insertLeague(leagueArrayList[i])
-                }
-
+                    dao.insertLeague(leagueArrayList)
                 return null
             }
 
@@ -127,4 +122,19 @@ object Model {
         }.execute()
     }
 
+    /*fun getLeagueCountry(nameSelected : String) : String {
+        Log.d("Error", "AQUI TMBN TMBN LLEGADO")
+        Log.d("Error", nameSelected)
+        Log.d("Error", actualLeague.countryName.toString())
+        if (!nameSelected.equals(actualLeague.countryName)){
+            for(league in leagueList) {
+                if(league.countryName.toString() == nameSelected) {
+                    actualLeague = league
+                    return league.countryName.toString()
+                }
+
+            }
+        }
+        return actualLeague.countryName.toString()
+    }*/
 }

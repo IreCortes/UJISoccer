@@ -15,8 +15,8 @@ interface DAO {
     fun getTeams(league : Int): List<Team>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLeague(league: League)
+    fun insertLeague(league: List<League>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeam(team: Team)
+    fun insertTeam(team: List<League>)
 }
