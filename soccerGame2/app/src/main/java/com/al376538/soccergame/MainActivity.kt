@@ -33,14 +33,14 @@ class MainActivity : AppCompatActivity() {
 
         presenter = Presenter(this, Model.getInstanceModel(context = applicationContext))
 
-        /*spinner.onItemSelectedListener = object : OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View,
                 position: Int,
                 id: Long
             ) { // your code here
-                Log.d("Name", parentView?.getItemAtPosition(position).toString());
+                //Log.d("Name", parentView?.getItemAtPosition(position).toString());
                 //getLeagueComponent(parentView?.getItemAtPosition(position).toString())
             }
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 start.text = ""
                 end.text = ""
             }
-        }*/
+        }
 
     }
 
