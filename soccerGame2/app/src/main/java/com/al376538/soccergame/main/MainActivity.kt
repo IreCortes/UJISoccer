@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.al376538.soccergame.R
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.League
+import com.al376538.soccergame.team.TeamActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var start: TextView
     private lateinit var end: TextView
     private lateinit var btn: Button
+    private lateinit var prueba : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -29,19 +31,23 @@ class MainActivity : AppCompatActivity() {
         start = findViewById(R.id.start)
         end = findViewById(R.id.end)
         btn = findViewById(R.id.nextLayout)
+        prueba = findViewById(R.id.prueba)
 
         btn.text = "Accept"
+
 
         presenter = mainPresenter(
             this,
             Model.getInstanceModel(context = applicationContext)
         )
+        prueba.text = "aiuwhdaierw"
 
-        /*btn.setOnClickListener {
-            val intent = Intent(this, TeamActivity::class.java)
-            startActivity(intent)
-        }*/
-
+        btn.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val changePage = Intent(this@MainActivity, TeamActivity :: class.java)
+                startActivity(changePage)
+            }
+        })
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -76,13 +82,4 @@ class MainActivity : AppCompatActivity() {
         // Set Adapter to Spinner
         spinner.setAdapter(listAdapterLeagues)
     }
-
-    /*private fun getLeagueComponent(name: String) {
-
-        Log.d("Error", "HE LLEGADO")
-
-
-        country.text = presenter.getCountry(name)
-
-    }*/
 }
