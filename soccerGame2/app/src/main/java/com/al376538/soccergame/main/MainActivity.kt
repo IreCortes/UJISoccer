@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity() {
             Model.getInstanceModel(context = applicationContext)
         )
 
-        btn.setOnClickListener {
+        /*btn.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
