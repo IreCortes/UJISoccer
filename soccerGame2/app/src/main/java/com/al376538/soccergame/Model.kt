@@ -18,8 +18,8 @@ import java.io.IOException
 object Model {
     private lateinit var dao: DAO
     private lateinit var queue: RequestQueue
-    private lateinit var leagueList : ArrayList<League>
-    //private lateinit var actualLeague: League
+    private var leagueList = ArrayList<League>()
+    private lateinit var actualLeague: League
 
     private fun model(context: Context) {
         val database : DataBase = databaseBuilder(
@@ -97,9 +97,9 @@ object Model {
                     leaguesArray.add(league)
 
                 }
-                leagueList = ArrayList(leaguesArray)
-                //actualLeague = leagueList[0]
-                receiveSendLeagues(response, listener, ArrayList(leaguesArray))
+                //Log.d("Name", leagueList.component1().toString())
+                //Falla el array, posiblemente no se guarda bien.
+                receiveSendLeagues(listener, ArrayList(leaguesArray))
             }
         }
         catch (e: IOException) {
@@ -107,7 +107,7 @@ object Model {
     }
 
     //Esta es la final que añade a la base de datos
-    private fun receiveSendLeagues(response: JSONObject, listener: Response.Listener<ArrayList<League>>, leagueArrayList: ArrayList<League>) {
+    private fun receiveSendLeagues(listener: Response.Listener<ArrayList<League>>, leagueArrayList: ArrayList<League>) {
         object : AsyncTask<Void?, Void?, Void?>() {
             override fun doInBackground(vararg params: Void?): Void? {
                     dao.insertLeague(leagueArrayList)
@@ -122,19 +122,49 @@ object Model {
         }.execute()
     }
 
-    /*fun getLeagueCountry(nameSelected : String) : String {
-        Log.d("Error", "AQUI TMBN TMBN LLEGADO")
-        Log.d("Error", nameSelected)
-        Log.d("Error", actualLeague.countryName.toString())
-        if (!nameSelected.equals(actualLeague.countryName)){
-            for(league in leagueList) {
-                if(league.countryName.toString() == nameSelected) {
-                    actualLeague = league
-                    return league.countryName.toString()
-                }
+    fun setLeagueList(value: ArrayList<League>) {
+            leagueList.addAll(value)
+    }
 
-            }
-        }
-        return actualLeague.countryName.toString()
+    /*fun getLeagueCountry(){
+        Log.d("Name", leagueList.isEmpty().toString())
+        for(i in leagueList)
+            Log.d("Name", i.name.toString())
     }*/
+
+    fun getLeagueCountry(nameSelected : String) : String {
+        for(league in leagueList) {
+            if(league.name.toString().equals(nameSelected)) {
+                //actualLeague = league
+                return league.countryName.toString()
+            }
+
+        }
+
+        return ""
+    }
+
+    fun getLeagueEnd(nameSelected : String) : String {
+        for(league in leagueList) {
+            if(league.name.toString().equals(nameSelected)) {
+                //actualLeague = league
+                return league.endDate.toString()
+            }
+
+        }
+
+        return ""
+    }
+
+    fun getLeagueInit(nameSelected : String) : String {
+        for(league in leagueList) {
+            if(league.name.toString().equals(nameSelected)) {
+                //actualLeague = league
+                return league.startDate.toString()
+            }
+
+        }
+
+        return ""
+    }
 }

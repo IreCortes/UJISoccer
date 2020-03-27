@@ -7,7 +7,6 @@ import com.android.volley.Response.Listener
 
 class Presenter(private var view: MainActivity, private var model: Model){
 
-    lateinit var leagueList : ArrayList<League>
     init {
             getLeagues()
     }
@@ -23,19 +22,27 @@ class Presenter(private var view: MainActivity, private var model: Model){
        if (leaguesList.isEmpty()) {
            model.collectLeagues(
                Listener {
+                   Log.d("Name1", it.isEmpty().toString())
                    view.completeSpinner(it)
-                   leagueList = leaguesList
-
+                   model.setLeagueList(it)
                }
            )
        }
        else {
            view.completeSpinner(leaguesList);
+           model.setLeagueList(leaguesList)
        }
    }
 
-    /*fun getCountry( name: String ) : String{
-        Log.d("Error", "AQUI TMBN LLEGADO")
+    fun getCountry(name : String) : String{
         return model.getLeagueCountry(name)
-    }*/
+    }
+
+    fun getEndDate(name : String) : String{
+        return model.getLeagueEnd(name)
+    }
+
+    fun getInitDate(name : String) : String{
+        return model.getLeagueInit(name)
+    }
 }

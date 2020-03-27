@@ -3,11 +3,8 @@ package com.al376538.soccergame
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.al376538.soccergame.database.League
 
@@ -20,6 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var country : TextView
     private lateinit var start : TextView
     private lateinit var end : TextView
+    private lateinit var btn : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Creado", "OnCreate")
@@ -30,10 +28,27 @@ class MainActivity : AppCompatActivity() {
         country = findViewById(R.id.country)
         start = findViewById(R.id.start)
         end = findViewById(R.id.end)
+        btn = findViewById(R.id.nextLayout)
+
+        btn.text = "Accept"
 
         presenter = Presenter(this, Model.getInstanceModel(context = applicationContext))
 
-        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                //country.text = parent!!.getItemAtPosition(position).toString()
+                start.text = presenter.getInitDate(parent!!.getItemAtPosition(position).toString())
+                end.text = presenter.getEndDate(parent!!.getItemAtPosition(position).toString())
+                country.text = presenter.getCountry(parent!!.getItemAtPosition(position).toString())
+            }
+
+        }
+
+        /*spinner.onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
                 selectedItemView: View,
@@ -49,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                 start.text = ""
                 end.text = ""
             }
-        }
+        }*/
 
     }
 
