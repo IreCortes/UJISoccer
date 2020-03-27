@@ -1,4 +1,4 @@
-package com.al376538.soccergame.database
+package com.al376538.soccergame.model.database
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -11,7 +11,7 @@ interface DAO {
     fun getLeagues(): List<League?>
 
     @Query("SELECT * FROM Team WHERE leagueID like :league")
-    fun getTeams(league: Int): List<Team>
+    fun getTeams(league: Int): List<Team?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLeague(league: List<League>)

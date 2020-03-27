@@ -1,17 +1,19 @@
-package com.al376538.soccergame
+package com.al376538.soccergame.main
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.al376538.soccergame.database.League
+import com.al376538.soccergame.R
+import com.al376538.soccergame.model.Model
+import com.al376538.soccergame.model.database.League
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var spinner: Spinner
-    private lateinit var presenter: Presenter
+    private lateinit var presenter: mainPresenter
 
     private lateinit var country: TextView
     private lateinit var start: TextView
@@ -19,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("Creado", "OnCreate")
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,9 +32,17 @@ class MainActivity : AppCompatActivity() {
 
         btn.text = "Accept"
 
-        presenter = Presenter(this, Model.getInstanceModel(context = applicationContext))
+        presenter = mainPresenter(
+            this,
+            Model.getInstanceModel(context = applicationContext)
+        )
 
-        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        btn.setOnClickListener {
+            val intent = Intent(this, TeamActivity::class.java)
+            startActivity(intent)
+        }
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -46,30 +55,11 @@ class MainActivity : AppCompatActivity() {
             ) {
                 //country.text = parent!!.getItemAtPosition(position).toString()
                 start.text = presenter.getInitDate(parent!!.getItemAtPosition(position).toString())
-                end.text = presenter.getEndDate(parent!!.getItemAtPosition(position).toString())
-                country.text = presenter.getCountry(parent!!.getItemAtPosition(position).toString())
+                end.text = presenter.getEndDate(parent.getItemAtPosition(position).toString())
+                country.text = presenter.getCountry(parent.getItemAtPosition(position).toString())
             }
 
         }
-
-        /*spinner.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                parentView: AdapterView<*>?,
-                selectedItemView: View,
-                position: Int,
-                id: Long
-            ) { // your code here
-                //Log.d("Name", parentView?.getItemAtPosition(position).toString());
-                //getLeagueComponent(parentView?.getItemAtPosition(position).toString())
-            }
-
-            override fun onNothingSelected(parentView: AdapterView<*>?) { // your code here
-                country.text = ""
-                start.text = ""
-                end.text = ""
-            }
-        }*/
-
     }
 
     fun completeSpinner(leaguesNames: ArrayList<League>) {

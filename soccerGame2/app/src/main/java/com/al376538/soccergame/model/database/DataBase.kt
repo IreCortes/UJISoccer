@@ -1,4 +1,4 @@
-package com.al376538.soccergame.database
+package com.al376538.soccergame.model.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,18 +1,19 @@
-package com.al376538.soccergame
+package com.al376538.soccergame.main
 
 import android.util.Log
-import com.al376538.soccergame.database.League
+import com.al376538.soccergame.model.Model
+import com.al376538.soccergame.model.database.League
 import com.android.volley.Response.Listener
 
 
-class Presenter(private var view: MainActivity, private var model: Model) {
+class mainPresenter(private var view: MainActivity, private var model: Model) {
 
     init {
         getLeagues()
     }
 
     private fun getLeagues() {
-        model.getLeagues(Listener
+        Model.getLeagues(Listener
         { response ->
             onLeagueAvailable(response!!)
         })
@@ -21,28 +22,28 @@ class Presenter(private var view: MainActivity, private var model: Model) {
 
     private fun onLeagueAvailable(leaguesList: ArrayList<League>) {
         if (leaguesList.isEmpty()) {
-            model.collectLeagues(
+            Model.collectLeagues(
                 Listener {
                     Log.d("Name1", it.isEmpty().toString())
                     view.completeSpinner(it)
-                    model.setLeagueList(it)
+                    Model.setLeagueList(it)
                 }
             )
         } else {
             view.completeSpinner(leaguesList);
-            model.setLeagueList(leaguesList)
+            Model.setLeagueList(leaguesList)
         }
     }
 
     fun getCountry(name: String): String {
-        return model.getLeagueCountry(name)
+        return Model.getLeagueCountry(name)
     }
 
     fun getEndDate(name: String): String {
-        return model.getLeagueEnd(name)
+        return Model.getLeagueEnd(name)
     }
 
     fun getInitDate(name: String): String {
-        return model.getLeagueInit(name)
+        return Model.getLeagueInit(name)
     }
 }
