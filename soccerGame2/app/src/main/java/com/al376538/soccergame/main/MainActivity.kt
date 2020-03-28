@@ -1,19 +1,21 @@
 package com.al376538.soccergame.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.al376538.soccergame.R
+import com.al376538.soccergame.team.TeamActivity
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.League
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var spinner: Spinner
-    private lateinit var presenter: mainPresenter
+    private lateinit var presenter: MainPresenter
 
+    private lateinit var spinner: Spinner
     private lateinit var country: TextView
     private lateinit var start: TextView
     private lateinit var end: TextView
@@ -31,15 +33,15 @@ class MainActivity : AppCompatActivity() {
 
         btn.text = "Accept"
 
-        presenter = mainPresenter(
+        presenter = MainPresenter(
             this,
             Model.getInstanceModel(context = applicationContext)
         )
 
-        /*btn.setOnClickListener {
+        btn.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             startActivity(intent)
-        }*/
+        }
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {

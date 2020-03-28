@@ -6,14 +6,14 @@ import com.al376538.soccergame.model.database.League
 import com.android.volley.Response.Listener
 
 
-class mainPresenter(private var view: MainActivity, private var model: Model) {
+class MainPresenter(private var view: MainActivity, private var model: Model) {
 
     init {
         getLeagues()
     }
 
     private fun getLeagues() {
-        Model.getLeagues(Listener
+        Model.mainManager.getLeagues(Listener
         { response ->
             onLeagueAvailable(response!!)
         })
@@ -22,28 +22,28 @@ class mainPresenter(private var view: MainActivity, private var model: Model) {
 
     private fun onLeagueAvailable(leaguesList: ArrayList<League>) {
         if (leaguesList.isEmpty()) {
-            Model.collectLeagues(
+            Model.mainManager.collectLeagues(
                 Listener {
                     Log.d("Name1", it.isEmpty().toString())
                     view.completeSpinner(it)
-                    Model.setLeagueList(it)
+                    Model.mainManager.setLeagueList(it)
                 }
             )
         } else {
             view.completeSpinner(leaguesList);
-            Model.setLeagueList(leaguesList)
+            Model.mainManager.setLeagueList(leaguesList)
         }
     }
 
     fun getCountry(name: String): String {
-        return Model.getLeagueCountry(name)
+        return Model.mainManager.getLeagueCountry(name)
     }
 
     fun getEndDate(name: String): String {
-        return Model.getLeagueEnd(name)
+        return Model.mainManager.getLeagueEnd(name)
     }
 
     fun getInitDate(name: String): String {
-        return Model.getLeagueInit(name)
+        return Model.mainManager.getLeagueInit(name)
     }
 }
