@@ -1,6 +1,7 @@
 package com.al376538.soccergame.team
 
 import android.os.AsyncTask
+import android.util.Log
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.Team
 import com.android.volley.Response
@@ -9,10 +10,13 @@ import org.json.JSONObject
 
 class TeamManager(private var  model : Model) {
 
+
+
     private var teamList = ArrayList<Team>()
 
     //get the teams for the dao
     fun getTeams(leagueId: Int, listener: Response.Listener<ArrayList<Team>>) {
+
         object : AsyncTask<Void?, Void?, ArrayList<Team>>() {
             override fun doInBackground(vararg params: Void?): ArrayList<Team> {
                 return ArrayList(model.dao.getTeams(leagueId).requireNoNulls())
@@ -50,15 +54,15 @@ class TeamManager(private var  model : Model) {
 
     //Transform JSONObject in teams, and add it to teamleague
     private fun parseTeams(response: JSONObject, listener: Response.Listener<ArrayList<Team>>) {
-        val teamJSONArray = response.getJSONArray("standings")
+        Log.d("Error", "Hola")
+        val tableJSONArray = response.getJSONArray("standings")
+        val teamsJSONObject = tableJSONArray.getJSONObject(0)
+        val teamsJSONArray = teamsJSONObject.getJSONArray("Table")
         val leaguesArray: MutableList<Team> = ArrayList(20)
 
-        for (i in 0 until teamJSONArray.length()) {
-
-            val miObjectJSON: JSONObject = teamJSONArray.getJSONObject(i)
+        for (i in 0 until teamsJSONArray.length()) {
+            val miObjectJSON: JSONObject = teamsJSONArray.getJSONObject(i)
+            Log.d("Error", miObjectJSON.getInt("won").toString())
         }
-
     }
-
-
 }
