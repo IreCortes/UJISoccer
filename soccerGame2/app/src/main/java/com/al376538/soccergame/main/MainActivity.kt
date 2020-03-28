@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.al376538.soccergame.R
+import com.al376538.soccergame.TeamActivity
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.League
-import com.al376538.soccergame.team.TeamActivity
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,12 +1,11 @@
-package com.al376538.soccergame.team
+package com.al376538.soccergame
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.al376538.soccergame.R
 
 class TeamActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team)
     }
