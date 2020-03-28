@@ -35,15 +35,23 @@ class MainPresenter(private var view: MainActivity, private var model: Model) {
         }
     }
 
-    fun getCountry(name: String): String {
-        return Model.mainManager.getLeagueCountry(name)
+    fun getCountry(): String {
+        return Model.mainManager.getLeagueCountry()
     }
 
-    fun getEndDate(name: String): String {
-        return Model.mainManager.getLeagueEnd(name)
+    fun getEndDate(): String {
+        return Model.mainManager.getLeagueEnd()
     }
 
-    fun getInitDate(name: String): String {
-        return Model.mainManager.getLeagueInit(name)
+    fun getInitDate(): String {
+        return Model.mainManager.getLeagueInit()
+    }
+
+    fun getLeagueId() : String {
+        return model.mainManager.getLeagueId()
+    }
+
+    fun setCurrentLeague(name : String) {
+        model.mainManager.setCurrentLeague(name)
     }
 }

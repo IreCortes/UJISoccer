@@ -21,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var end: TextView
     private lateinit var btn: Button
 
+    companion object {
+        const val EXTRA_NAME = "EXTRA_NAME"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -39,8 +43,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         btn.setOnClickListener {
-            val intent = Intent(this, TeamActivity::class.java)
-            startActivity(intent)
+            openActivity()
         }
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -54,10 +57,10 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                //country.text = parent!!.getItemAtPosition(position).toString()
-                start.text = presenter.getInitDate(parent!!.getItemAtPosition(position).toString())
-                end.text = presenter.getEndDate(parent.getItemAtPosition(position).toString())
-                country.text = presenter.getCountry(parent.getItemAtPosition(position).toString())
+                presenter.setCurrentLeague(parent!!.getItemAtPosition(position).toString())
+                start.text = presenter.getInitDate()
+                end.text = presenter.getEndDate()
+                country.text = presenter.getCountry()
             }
 
         }
@@ -78,12 +81,10 @@ class MainActivity : AppCompatActivity() {
         spinner.setAdapter(listAdapterLeagues)
     }
 
-    /*private fun getLeagueComponent(name: String) {
+    fun openActivity() {
+        val intent = Intent(this, TeamActivity::class.java)
+        intent.putExtra(EXTRA_NAME, presenter.getLeagueId())
+        startActivity(intent)
+    }
 
-        Log.d("Error", "HE LLEGADO")
-
-
-        country.text = presenter.getCountry(name)
-
-    }*/
 }

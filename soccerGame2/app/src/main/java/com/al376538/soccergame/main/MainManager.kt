@@ -11,6 +11,7 @@ import java.io.IOException
 class MainManager(private var model : Model) {
 
     private var leagueList = ArrayList<League>()
+    private lateinit var currentLeague : League
 
     //get the leagues from the dao
     fun getLeagues(listener: Response.Listener<ArrayList<League>>) {
@@ -103,39 +104,32 @@ class MainManager(private var model : Model) {
 
     fun setLeagueList(value: ArrayList<League>) {
         leagueList.addAll(value)
+        currentLeague = leagueList.component1()
     }
 
-    fun getLeagueCountry(nameSelected: String): String {
+    fun getLeagueCountry(): String {
+        return currentLeague.countryName.toString()
+    }
+
+    fun getLeagueEnd(): String {
+        return currentLeague.endDate.toString()
+    }
+
+    fun getLeagueInit(): String {
+        return currentLeague.startDate.toString()
+    }
+
+    fun getLeagueId() : String {
+        return currentLeague.idLeague.toString()
+    }
+
+    fun setCurrentLeague(nameSelected: String){
         for (league in leagueList) {
             if (league.name.toString().equals(nameSelected)) {
-                //actualLeague = league
-                return league.countryName.toString()
+                currentLeague = league
+                break
             }
         }
-        return ""
     }
 
-    fun getLeagueEnd(nameSelected: String): String {
-        for (league in leagueList) {
-            if (league.name.toString().equals(nameSelected)) {
-                //actualLeague = league
-                return league.endDate.toString()
-            }
-
-        }
-
-        return ""
-    }
-
-    fun getLeagueInit(nameSelected: String): String {
-        for (league in leagueList) {
-            if (league.name.toString().equals(nameSelected)) {
-                //actualLeague = league
-                return league.startDate.toString()
-            }
-
-        }
-
-        return ""
-    }
 }
