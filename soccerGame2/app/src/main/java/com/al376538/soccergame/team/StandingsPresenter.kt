@@ -1,7 +1,6 @@
 package com.al376538.soccergame.team
 
 import com.al376538.soccergame.model.Model
-import com.al376538.soccergame.model.database.Team
 import com.android.volley.Response.Listener
 
 class StandingsPresenter(private var view: StandingsActivity, private var model: Model, private var leagueId : String) {
@@ -11,19 +10,19 @@ class StandingsPresenter(private var view: StandingsActivity, private var model:
     }
 
     private fun getTeams() {
-        onTeamAvailable(model.teamManager.getStandings())
+        onTeamAvailable(model.standingsManager.getStandings())
 
     }
 
     private fun onTeamAvailable(teamList: ArrayList<TeamInStanding>) {
         if (teamList.isEmpty()) {
-            Model.teamManager.collectStandings(leagueId.toInt(),
+            Model.standingsManager.collectStandings(leagueId.toInt(),
                 Listener {
-                    view.setAdapter(it)
+                    view.setAdapter(it, model.standingsManager.getPosTeams())
                 }
             )
         } else {
-            view.setAdapter(teamList)
+            view.setAdapter(teamList, model.standingsManager.getPosTeams())
         }
     }
 

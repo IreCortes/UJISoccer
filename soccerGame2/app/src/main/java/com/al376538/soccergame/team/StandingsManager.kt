@@ -67,4 +67,14 @@ class StandingsManager(private var  model : Model) {
         }
 
     }
+
+    fun getPosTeams() : Array<String> {
+        var arrayList : MutableList<String> = ArrayList(teamList.size)
+
+        for(i in teamList){
+            arrayList.add(i.position.toString())
+        }
+
+        return arrayList.toTypedArray()
+    }
 }

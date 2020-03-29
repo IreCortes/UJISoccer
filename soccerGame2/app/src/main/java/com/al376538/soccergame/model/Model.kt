@@ -15,7 +15,7 @@ object Model {
     internal lateinit var queue: RequestQueue
 
     lateinit var mainManager: MainManager
-    lateinit var teamManager: StandingsManager
+    lateinit var standingsManager: StandingsManager
 
     //Model create
     private fun model(context: Context) {
@@ -28,7 +28,7 @@ object Model {
         dao = database.Dao()
         queue = Volley.newRequestQueue(context)
         mainManager = MainManager(this)
-        teamManager = StandingsManager(this)
+        standingsManager = StandingsManager(this)
     }
 
     //Get an instance of a model

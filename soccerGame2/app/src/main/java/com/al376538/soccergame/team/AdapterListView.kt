@@ -8,8 +8,8 @@ import android.widget.TextView
 import com.al376538.soccergame.R
 import kotlinx.android.synthetic.main.list_content.view.*
 
-class AdapterListView (private val context: Activity, private val arrayStanding : ArrayList<TeamInStanding>)
-    : ArrayAdapter<String>(context, R.layout.list_content){
+class AdapterListView (private val context: Activity, private val arrayStanding : ArrayList<TeamInStanding>, positions : Array<String>)
+    : ArrayAdapter<String>(context, R.layout.list_content, positions){
 
     override fun getView(i : Int, view: View?, parent: ViewGroup): View {
 

@@ -29,8 +29,8 @@ class StandingsActivity : AppCompatActivity() {
 
     }
 
-    fun setAdapter(array : ArrayList<TeamInStanding>) {
-        adapter = AdapterListView(this, array)
+    fun setAdapter(array : ArrayList<TeamInStanding>, positions: Array<String>) {
+        adapter = AdapterListView(this, array, positions)
         myListView.adapter = adapter
     }
 }
