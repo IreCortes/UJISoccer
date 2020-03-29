@@ -11,20 +11,19 @@ class StandingsPresenter(private var view: StandingsActivity, private var model:
     }
 
     private fun getTeams() {
-        model.teamManager.getStandings(leagueId.toInt(), Listener
-        { response ->
-            onTeamAvailable(response!!)
-        })
+        onTeamAvailable(model.teamManager.getStandings())
+
     }
 
-    private fun onTeamAvailable(teamList: ArrayList<Team>) {
+    private fun onTeamAvailable(teamList: ArrayList<TeamInStanding>) {
         if (teamList.isEmpty()) {
             Model.teamManager.collectStandings(leagueId.toInt(),
                 Listener {
+                    view.setAdapter(it)
                 }
             )
         } else {
-
+            view.setAdapter(teamList)
         }
     }
 

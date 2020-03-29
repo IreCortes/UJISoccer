@@ -11,26 +11,15 @@ import java.io.IOException
 
 class StandingsManager(private var  model : Model) {
 
-
-
-    private var teamList = ArrayList<Team>()
+    private var teamList = ArrayList<TeamInStanding>()
 
     //get the teams for the dao
-    fun getStandings(leagueId: Int, listener: Response.Listener<ArrayList<Team>>) {
-        object : AsyncTask<Void?, Void?, ArrayList<Team>>() {
-            override fun doInBackground(vararg params: Void?): ArrayList<Team> {
-                return ArrayList(model.dao.getTeams(leagueId).requireNoNulls())
-
-            }
-
-            override fun onPostExecute(team: ArrayList<Team>) {
-                listener.onResponse(team)
-            }
-        }.execute()
+    fun getStandings() : ArrayList<TeamInStanding>{
+        return teamList
     }
 
     //get the teams from webpage
-    fun collectStandings(idLeague: Int, listener: Response.Listener<ArrayList<Team>>) {
+    fun collectStandings(idLeague: Int, listener: Response.Listener<ArrayList<TeamInStanding>>) {
 
         val jsonObjectRequest = object : JsonObjectRequest(Method.GET, "https://api.football-data.org/v2/competitions/$idLeague/standings", null, Response.Listener { response ->
                 parseStandings( response, listener)
@@ -46,13 +35,13 @@ class StandingsManager(private var  model : Model) {
     }
 
     //Transform JSONObject in teams, and add it to teamleague
-    private fun parseStandings(response: JSONObject, listener: Response.Listener<ArrayList<Team>>) {
+    private fun parseStandings(response: JSONObject, listener: Response.Listener<ArrayList<TeamInStanding>>) {
         try {
             val tableJSONArray = response.getJSONArray("standings")
             val teamsJSONObject = tableJSONArray.getJSONObject(1)
             val teamsJSONArray = teamsJSONObject.getJSONArray("table")
 
-            val leaguesArray: MutableList<Team> = ArrayList(20)
+            val teamsStandingArray: MutableList<TeamInStanding> = ArrayList(20)
 
             for (i in 0 until teamsJSONArray.length()) {
 
@@ -60,7 +49,7 @@ class StandingsManager(private var  model : Model) {
 
                 val team = miObjectJSON.getJSONObject("team")
                 val position = miObjectJSON.getInt("position")
-                val playedgames = miObjectJSON.getString("playedGames")
+                val playedgames = miObjectJSON.getInt("playedGames")
                 val won = miObjectJSON.getInt("won")
                 val draw = miObjectJSON.getInt("draw")
                 val lost = miObjectJSON.getInt("lost")
@@ -68,9 +57,12 @@ class StandingsManager(private var  model : Model) {
                 val goalsFor = miObjectJSON.getInt("goalsFor")
                 val goalsAgainst = miObjectJSON.getInt("goalsAgainst")
 
-
+                var teamStanding = TeamInStanding(team, position, playedgames, won, draw, lost, points, goalsFor, goalsAgainst)
+                teamsStandingArray.add(teamStanding)
             }
-            Log.d("Error", "postFor")
+            teamList.addAll(teamsStandingArray)
+            listener.onResponse(teamsStandingArray as ArrayList<TeamInStanding>)
+
         }catch (e: IOException) {
         }
 

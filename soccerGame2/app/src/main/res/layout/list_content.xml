@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="POS" />
+
+    <TextView
+        android:id="@+id/team_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minEms="9"
+        app:layout_constraintStart_toEndOf="@+id/position"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TEAM NAME" />
+
+    <TextView
+        android:id="@+id/playedGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/team_name"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="PG" />
+
+    <TextView
+        android:id="@+id/win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/playedGames"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="W" />
+
+    <TextView
+        android:id="@+id/draw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/win"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="D" />
+
+    <TextView
+        android:id="@+id/loss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/draw"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="L" />
+
+    <TextView
+        android:id="@+id/ptos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/loss"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="PT" />
+
+    <TextView
+        android:id="@+id/goalsFavor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/ptos"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="GF" />
+
+    <TextView
+        android:id="@+id/goalsAgainst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/goalsFavor"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="GA" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
