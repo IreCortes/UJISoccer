@@ -24,7 +24,6 @@ class MainPresenter(private var view: MainActivity, private var model: Model) {
         if (leaguesList.isEmpty()) {
             Model.mainManager.collectLeagues(
                 Listener {
-                    Log.d("Name1", it.isEmpty().toString())
                     view.completeSpinner(it)
                     Model.mainManager.setLeagueList(it)
                 }

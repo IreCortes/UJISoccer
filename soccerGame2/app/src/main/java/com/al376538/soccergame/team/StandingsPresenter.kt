@@ -1,18 +1,17 @@
 package com.al376538.soccergame.team
 
-import android.util.Log
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.Team
 import com.android.volley.Response.Listener
 
-class TeamPresenter(private var view: TeamActivity, private var model: Model, private var leagueId : String) {
+class StandingsPresenter(private var view: StandingsActivity, private var model: Model, private var leagueId : String) {
 
     init {
         getTeams()
     }
 
     private fun getTeams() {
-        model.teamManager.getTeams(leagueId.toInt(), Listener
+        model.teamManager.getStandings(leagueId.toInt(), Listener
         { response ->
             onTeamAvailable(response!!)
         })
@@ -20,7 +19,7 @@ class TeamPresenter(private var view: TeamActivity, private var model: Model, pr
 
     private fun onTeamAvailable(teamList: ArrayList<Team>) {
         if (teamList.isEmpty()) {
-            Model.teamManager.collectTeams(leagueId.toInt(),
+            Model.teamManager.collectStandings(leagueId.toInt(),
                 Listener {
                 }
             )

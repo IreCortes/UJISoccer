@@ -7,9 +7,9 @@ import com.al376538.soccergame.R
 import com.al376538.soccergame.main.MainActivity.Companion.EXTRA_NAME
 import com.al376538.soccergame.model.Model
 
-class TeamActivity : AppCompatActivity() {
+class StandingsActivity : AppCompatActivity() {
 
-    private lateinit var presenter: TeamPresenter
+    private lateinit var presenter: StandingsPresenter
     private lateinit var textView : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class TeamActivity : AppCompatActivity() {
         val extra = intent.extras
         val leagueID : String = extra!!.getString(EXTRA_NAME)!!
 
-        presenter = TeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
+        presenter = StandingsPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
 
         textView = findViewById(R.id.prueba)
         textView.text = leagueID

@@ -17,7 +17,6 @@ import androidx.room.PrimaryKey
 data class Team(
     @PrimaryKey()
     var idTeam: Int,
-    var name: String?,
     var shortName: String?,
     var yearFoundation: Int,
     var stadium: String?,
@@ -29,13 +28,13 @@ data class Team(
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
-        parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readInt()
-    )
+    ) {
+    }
 
     override fun toString(): String {
         return super.toString()
@@ -43,7 +42,6 @@ data class Team(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(idTeam)
-        parcel.writeString(name)
         parcel.writeString(shortName)
         parcel.writeInt(yearFoundation)
         parcel.writeString(stadium)
