@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.al376538.soccergame.R
-import com.al376538.soccergame.team.StandingsActivity
+import com.al376538.soccergame.team.StandingTeamActivity
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.League
 
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openActivity() {
-        val intent = Intent(this, StandingsActivity::class.java)
+        val intent = Intent(this, StandingTeamActivity::class.java)
         intent.putExtra(EXTRA_NAME, presenter.getLeagueId())
         startActivity(intent)
     }

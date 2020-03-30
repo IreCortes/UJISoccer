@@ -6,7 +6,7 @@ import androidx.room.Room.databaseBuilder
 import com.al376538.soccergame.main.MainManager
 import com.al376538.soccergame.model.database.DAO
 import com.al376538.soccergame.model.database.DataBase
-import com.al376538.soccergame.team.StandingsManager
+import com.al376538.soccergame.standings.StandingsManager
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
@@ -28,7 +28,8 @@ object Model {
         dao = database.Dao()
         queue = Volley.newRequestQueue(context)
         mainManager = MainManager(this)
-        standingsManager = StandingsManager(this)
+        standingsManager =
+            StandingsManager(this)
     }
 
     //Get an instance of a model

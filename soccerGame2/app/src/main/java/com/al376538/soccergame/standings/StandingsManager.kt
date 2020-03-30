@@ -1,9 +1,6 @@
-package com.al376538.soccergame.team
+package com.al376538.soccergame.standings
 
-import android.os.AsyncTask
-import android.util.Log
 import com.al376538.soccergame.model.Model
-import com.al376538.soccergame.model.database.Team
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
@@ -38,7 +35,7 @@ class StandingsManager(private var  model : Model) {
     private fun parseStandings(response: JSONObject, listener: Response.Listener<ArrayList<TeamInStanding>>) {
         try {
             val tableJSONArray = response.getJSONArray("standings")
-            val teamsJSONObject = tableJSONArray.getJSONObject(1)
+            val teamsJSONObject = tableJSONArray.getJSONObject(0)
             val teamsJSONArray = teamsJSONObject.getJSONArray("table")
 
             val teamsStandingArray: MutableList<TeamInStanding> = ArrayList(20)
@@ -57,7 +54,18 @@ class StandingsManager(private var  model : Model) {
                 val goalsFor = miObjectJSON.getInt("goalsFor")
                 val goalsAgainst = miObjectJSON.getInt("goalsAgainst")
 
-                var teamStanding = TeamInStanding(team, position, playedgames, won, draw, lost, points, goalsFor, goalsAgainst)
+                var teamStanding =
+                    TeamInStanding(
+                        team,
+                        position,
+                        playedgames,
+                        won,
+                        draw,
+                        lost,
+                        points,
+                        goalsFor,
+                        goalsAgainst
+                    )
                 teamsStandingArray.add(teamStanding)
             }
             teamList.addAll(teamsStandingArray)

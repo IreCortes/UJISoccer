@@ -1,4 +1,4 @@
-package com.al376538.soccergame.team
+package com.al376538.soccergame.standings
 
 import android.app.Activity
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.al376538.soccergame.R
-import kotlinx.android.synthetic.main.list_content.view.*
+import com.al376538.soccergame.standings.TeamInStanding
 
 class AdapterListView (private val context: Activity, private val arrayStanding : ArrayList<TeamInStanding>, positions : Array<String>)
     : ArrayAdapter<String>(context, R.layout.list_content, positions){

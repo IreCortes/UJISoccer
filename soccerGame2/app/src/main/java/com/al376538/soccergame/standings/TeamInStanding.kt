@@ -1,4 +1,4 @@
-package com.al376538.soccergame.team
+package com.al376538.soccergame.standings
 
 import org.json.JSONObject
 import java.lang.NullPointerException
