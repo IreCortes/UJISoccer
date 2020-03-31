@@ -9,6 +9,7 @@ import com.al376538.soccergame.model.database.DataBase
 import com.al376538.soccergame.model.database.League
 import com.al376538.soccergame.model.database.Team
 import com.al376538.soccergame.standings.StandingsManager
+import com.al376538.soccergame.standings.TeamInStanding
 import com.al376538.soccergame.team.TeamManager
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
@@ -23,7 +24,6 @@ object Model {
 
 
     val leagueList = ArrayList<League>()
-    var teamArray = ArrayList<Team>()
     lateinit var currentLeague : League
 
 

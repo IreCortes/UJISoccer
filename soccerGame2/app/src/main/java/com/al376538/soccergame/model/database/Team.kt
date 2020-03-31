@@ -15,7 +15,8 @@ import androidx.room.PrimaryKey
         childColumns = ["leagueID"],
         onUpdate = ForeignKey.CASCADE,
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = arrayOf(Index(value = ["leagueID"]))
 )
 data class Team(
     @PrimaryKey()

@@ -3,9 +3,11 @@ package com.al376538.soccergame.team
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.al376538.soccergame.MyDialog
 import com.al376538.soccergame.R
 import com.al376538.soccergame.main.MainActivity.Companion.EXTRA_NAME
 import com.al376538.soccergame.model.Model
@@ -23,27 +25,22 @@ class StandingTeamActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_standings)
 
+        Log.d("Mst", "OnCreate")
+
         val extra = intent.extras
         val leagueID : String = extra!!.getString(EXTRA_NAME)!!
 
-        myListView = findViewById(R.id.listView) as ListView
+        myListView = findViewById<ListView>(R.id.listView)
 
         presenter = StandingTeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
 
-        myListView.onItemClickListener = object : AdapterView.OnItemClickListener {
-
-            override fun onItemClick(
-                parent: AdapterView<*>, view: View,
-                position: Int, id: Long
-            ) {
-
+        myListView.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
                 // value of item that is clicked
                 val itemValue = myListView.getItemAtPosition(position) as String
-
                 // Toast the values
-                showDialog("ahjsdajsd", "jahsfdjhd")
+                openDialog()
             }
-        }
 
     }
 
@@ -57,6 +54,7 @@ class StandingTeamActivity : AppCompatActivity() {
     }
 
     fun showDialog(message : String, title : String) {
+
         val dialogBuilder = AlertDialog.Builder(this)
 
         // set message of alert dialog
@@ -81,5 +79,10 @@ class StandingTeamActivity : AppCompatActivity() {
         alert.setTitle(title)
         // show alert dialog
         alert.show()
+    }
+
+    fun openDialog() {
+        val myDialog : MyDialog = MyDialog()
+        myDialog.show(supportFragmentManager, "example Dialog")
     }
 }

@@ -8,11 +8,11 @@ import java.io.IOException
 
 class StandingsManager(private var  model : Model) {
 
-    private var teamList = ArrayList<TeamInStanding>()
+    var teamStandingArray = ArrayList<TeamInStanding>()
 
     //get the teams for the dao
     fun getStandings() : ArrayList<TeamInStanding>{
-        return teamList
+        return teamStandingArray
     }
 
     //get the teams from webpage
@@ -68,7 +68,7 @@ class StandingsManager(private var  model : Model) {
                     )
                 teamsStandingArray.add(teamStanding)
             }
-            teamList.addAll(teamsStandingArray)
+            teamStandingArray.addAll(teamsStandingArray)
             listener.onResponse(teamsStandingArray as ArrayList<TeamInStanding>)
 
         }catch (e: IOException) {
@@ -77,12 +77,16 @@ class StandingsManager(private var  model : Model) {
     }
 
     fun getPosTeams() : Array<String> {
-        var arrayList : MutableList<String> = ArrayList(teamList.size)
+        var arrayList : MutableList<String> = ArrayList(teamStandingArray.size)
 
-        for(i in teamList){
+        for(i in teamStandingArray){
             arrayList.add(i.position.toString())
         }
 
         return arrayList.toTypedArray()
+    }
+
+    fun getTeamName(pos : Int) : String {
+        return teamStandingArray[pos].team.getString("name")
     }
 }

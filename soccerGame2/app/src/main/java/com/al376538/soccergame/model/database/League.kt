@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "League",
-        indices = [(Index(value = ["idLeague"], name = "idLeague"))]
+        indices = [(Index(value = ["idLeague"]))]
 )
 data class League(
     @PrimaryKey()

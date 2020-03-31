@@ -11,7 +11,10 @@ import org.json.JSONObject
 
 class TeamManager(private var model : Model) {
 
+    var teamArray = ArrayList<Team>()
+
     fun getTeams(league : Int, listener: Response.Listener<ArrayList<Team>>) {
+        Log.d("Mst", "getTeams")
         object : AsyncTask<Void?, Void?, ArrayList<Team>>() {
             override fun doInBackground(vararg params: Void?): ArrayList<Team> {
                 return ArrayList(model.dao.getTeams(league).requireNoNulls())
@@ -25,6 +28,7 @@ class TeamManager(private var model : Model) {
     }
 
     fun collectTeams(league: Int, listener: Response.Listener<ArrayList<Team>>) {
+        Log.d("Mst", "collectTeams")
         val jsonObjectRequest = object : JsonObjectRequest(
             Method.GET,
             "https://api.football-data.org/v2/competitions/$league/teams",
@@ -66,11 +70,11 @@ class TeamManager(private var model : Model) {
                 val stadium : String = teamJSONObject.getString("venue")
 
                 val teamObject = Team(idTeam, name, shortName, founded, stadium, clubColors, website, leagueID)
-
+                Log.d("Mst", teamObject.toString())
                 teamsArray.add(teamObject)
             }
-            model.teamArray.addAll(teamsArray)
-            receiveSendTeams(listener, model.teamArray)
+            teamArray.addAll(teamsArray)
+            receiveSendTeams(listener, teamArray)
 
         } catch (e: JSONException) {
             Log.d("Error", "JSON TEAM EXCEPTION")
@@ -93,6 +97,8 @@ class TeamManager(private var model : Model) {
     }
 
     fun setTeams(teamArrayList: ArrayList<Team>) {
-        model.teamArray.addAll(teamArrayList)
+        teamArray.addAll(teamArrayList)
     }
+
+
 }
