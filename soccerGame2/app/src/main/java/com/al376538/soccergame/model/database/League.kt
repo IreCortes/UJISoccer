@@ -3,9 +3,12 @@ package com.al376538.soccergame.model.database
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "League")
+@Entity(tableName = "League",
+        indices = [(Index(value = ["idLeague"], name = "idLeague"))]
+)
 data class League(
     @PrimaryKey()
     var idLeague: Int,

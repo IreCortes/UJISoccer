@@ -6,7 +6,10 @@ import androidx.room.Room.databaseBuilder
 import com.al376538.soccergame.main.MainManager
 import com.al376538.soccergame.model.database.DAO
 import com.al376538.soccergame.model.database.DataBase
+import com.al376538.soccergame.model.database.League
+import com.al376538.soccergame.model.database.Team
 import com.al376538.soccergame.standings.StandingsManager
+import com.al376538.soccergame.team.TeamManager
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
@@ -16,6 +19,13 @@ object Model {
 
     lateinit var mainManager: MainManager
     lateinit var standingsManager: StandingsManager
+    lateinit var teamsManager: TeamManager
+
+
+    val leagueList = ArrayList<League>()
+    var teamArray = ArrayList<Team>()
+    lateinit var currentLeague : League
+
 
     //Model create
     private fun model(context: Context) {
@@ -28,8 +38,8 @@ object Model {
         dao = database.Dao()
         queue = Volley.newRequestQueue(context)
         mainManager = MainManager(this)
-        standingsManager =
-            StandingsManager(this)
+        standingsManager = StandingsManager(this)
+        teamsManager = TeamManager(this)
     }
 
     //Get an instance of a model

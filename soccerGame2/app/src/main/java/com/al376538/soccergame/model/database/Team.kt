@@ -4,19 +4,23 @@ import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "Team", foreignKeys = [ForeignKey(
+    tableName = "Team",
+    foreignKeys = [ForeignKey(
         entity = League::class,
-        parentColumns = arrayOf("idLeague"),
-        childColumns = arrayOf("leagueID"),
+        parentColumns = ["idLeague"],
+        childColumns = ["leagueID"],
+        onUpdate = ForeignKey.CASCADE,
         onDelete = ForeignKey.CASCADE
     )]
 )
 data class Team(
     @PrimaryKey()
     var idTeam: Int,
+    var name: String?,
     var shortName: String?,
     var yearFoundation: Int,
     var stadium: String?,
@@ -27,6 +31,7 @@ data class Team(
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
         parcel.readString(),
@@ -42,6 +47,7 @@ data class Team(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(idTeam)
+        parcel.writeString(name)
         parcel.writeString(shortName)
         parcel.writeInt(yearFoundation)
         parcel.writeString(stadium)

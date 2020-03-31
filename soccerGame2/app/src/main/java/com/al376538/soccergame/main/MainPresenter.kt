@@ -29,8 +29,9 @@ class MainPresenter(private var view: MainActivity, private var model: Model) {
                 }
             )
         } else {
-            view.completeSpinner(leaguesList);
             Model.mainManager.setLeagueList(leaguesList)
+            view.completeSpinner(leaguesList);
+
         }
     }
 

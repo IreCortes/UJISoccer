@@ -17,5 +17,5 @@ interface DAO {
     fun insertLeague(league: List<League>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeam(team: List<League>)
+    fun insertTeam(team: List<Team>)
 }

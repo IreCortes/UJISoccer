@@ -1,6 +1,7 @@
 package com.al376538.soccergame.main
 
 import android.os.AsyncTask
+import android.util.Log
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.League
 import com.android.volley.Response
@@ -9,9 +10,6 @@ import org.json.JSONObject
 import java.io.IOException
 
 class MainManager(private var model : Model) {
-
-    private var leagueList = ArrayList<League>()
-    private lateinit var currentLeague : League
 
     //get the leagues from the dao
     fun getLeagues(listener: Response.Listener<ArrayList<League>>) {
@@ -103,31 +101,31 @@ class MainManager(private var model : Model) {
     }
 
     fun setLeagueList(value: ArrayList<League>) {
-        leagueList.addAll(value)
-        currentLeague = leagueList.component1()
+        model.leagueList.addAll(value)
+        model.currentLeague = model.leagueList.component1()
     }
 
     fun getLeagueCountry(): String {
-        return currentLeague.countryName.toString()
+        return model.currentLeague.countryName.toString()
     }
 
     fun getLeagueEnd(): String {
-        return currentLeague.endDate.toString()
+        return model.currentLeague.endDate.toString()
     }
 
     fun getLeagueInit(): String {
-        return currentLeague.startDate.toString()
+        Log.d("Error" ,model.leagueList.isEmpty().toString())
+        return model.currentLeague.startDate.toString()
     }
 
     fun getLeagueId() : String {
-        return currentLeague.idLeague.toString()
+        return model.currentLeague.idLeague.toString()
     }
 
     fun setCurrentLeague(nameSelected: String){
-        for (league in leagueList) {
+        for (league in model.leagueList) {
             if (league.name.toString().equals(nameSelected)) {
-                currentLeague = league
-                break
+                model.currentLeague = league
             }
         }
     }
