@@ -8,12 +8,7 @@ import java.io.IOException
 
 class StandingsManager(private var  model : Model) {
 
-    var teamStandingArray = ArrayList<TeamInStanding>()
-
-    //get the teams for the dao
-    fun getStandings() : ArrayList<TeamInStanding>{
-        return teamStandingArray
-    }
+   private var teamStandingArray = ArrayList<TeamInStanding>()
 
     //get the teams from webpage
     fun collectStandings(idLeague: Int, listener: Response.Listener<ArrayList<TeamInStanding>>) {

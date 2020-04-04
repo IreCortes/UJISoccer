@@ -9,13 +9,20 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 
-@Suppress("UNREACHABLE_CODE")
+
 class MyDialog : AppCompatDialogFragment() {
 
     private lateinit var founded : TextView
     private lateinit var shortName : TextView
     private lateinit var stadium : TextView
     private lateinit var clubcolors : TextView
+
+    private var _founded : String = ""
+    private var _shortName : String = ""
+    private var _stadium : String = ""
+    private var _clubColors : String = ""
+    private var title : String = ""
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder : AlertDialog.Builder = AlertDialog.Builder(activity)
@@ -24,7 +31,7 @@ class MyDialog : AppCompatDialogFragment() {
         val view : View = inflater.inflate(R.layout.cuadro_dialogo, null)
 
 
-        builder.setView(view).setTitle("Login")
+        builder.setView(view).setTitle(title)
             // positive button text and action
             .setPositiveButton("WEB", DialogInterface.OnClickListener {
                     dialog, id -> dialog.cancel()
@@ -42,8 +49,22 @@ class MyDialog : AppCompatDialogFragment() {
         stadium = view.findViewById(R.id.stadium)
         clubcolors = view.findViewById(R.id.clubcolor)
 
+        founded.text = _founded
+        shortName.text = _shortName
+        stadium.text = _stadium
+        clubcolors.text = _clubColors
+
 
 
         return builder.create()
     }
+
+    fun setTexts(f : String, sN : String, s : String, c : String, t :String) {
+        _founded = f
+        _shortName = sN
+        _stadium = s
+        _clubColors = c
+        title = t
+    }
+
 }

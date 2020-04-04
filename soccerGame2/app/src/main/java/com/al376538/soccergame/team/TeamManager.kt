@@ -100,5 +100,27 @@ class TeamManager(private var model : Model) {
         teamArray.addAll(teamArrayList)
     }
 
+    fun findTeam(name : String) : Team {
+        for(i in 0 until teamArray.size) {
+            if(name == teamArray[i].name)
+                return teamArray[i]
+        }
+        return teamArray[0]
+    }
 
+    fun getShortName(team: Team): String? {
+        return team.shortName
+    }
+
+    fun getFoundedYear(team : Team ): String {
+        return team.yearFoundation.toString()
+    }
+
+    fun getStadium(team : Team) : String? {
+        return team.stadium
+    }
+
+    fun getClubColors(team : Team) : String? {
+        return team.colour
+    }
 }

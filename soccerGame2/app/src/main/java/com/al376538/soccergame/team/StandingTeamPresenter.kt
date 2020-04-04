@@ -14,12 +14,33 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
     }
 
     fun getTeamName(pos : String) : String {
-        Log.d("Error", model.teamsManager.teamArray.isEmpty().toString())
         return  model.standingsManager.getTeamName(pos.toInt() - 1)
     }
 
+
+
+    fun getShort(pos : String) : String? {
+        return model.teamsManager.getShortName(getTeam(pos))
+    }
+
+    fun getYearFounded(pos : String) : String? {
+        return model.teamsManager.getFoundedYear(getTeam(pos))
+    }
+
+    fun getStadium(pos : String) : String? {
+        return model.teamsManager.getStadium(getTeam(pos))
+    }
+
+    fun getColorsClub(pos : String) : String? {
+        return model.teamsManager.getClubColors(getTeam(pos))
+    }
+
+    fun getTeam(pos : String) : Team{
+        return model.teamsManager.findTeam(getTeamName(pos))
+    }
+
     private fun getStandings() {
-        onStandingsAvailable(model.standingsManager.getStandings())
+        onStandingsAvailable()
 
     }
 
@@ -31,7 +52,7 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
         })
     }
 
-    private fun onStandingsAvailable(teamList: ArrayList<TeamInStanding>) {
+    private fun onStandingsAvailable() {
         Model.standingsManager.collectStandings(leagueId.toInt(),
             Listener {
                 view.setAdapter(it, model.standingsManager.getPosTeams())
@@ -40,8 +61,6 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
     }
 
     private fun onTeamsAvailable(leagueId:Int, teamList: ArrayList<Team>) {
-        Log.d("Mst", "onTeamsAvailable")
-        Log.d("Mst", "is empty: ${teamList.isEmpty()}")
         if(teamList.isEmpty()) {
             model.teamsManager.collectTeams(leagueId, Listener {
                 model.teamsManager.setTeams(teamList)
@@ -51,4 +70,5 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
             model.teamsManager.setTeams(teamList)
         }
     }
+
 }

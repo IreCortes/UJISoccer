@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.al376538.soccergame.MyDialog
@@ -30,7 +29,7 @@ class StandingTeamActivity : AppCompatActivity() {
         val extra = intent.extras
         val leagueID : String = extra!!.getString(EXTRA_NAME)!!
 
-        myListView = findViewById<ListView>(R.id.listView)
+        myListView = findViewById(R.id.listView)
 
         presenter = StandingTeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
 
@@ -39,7 +38,7 @@ class StandingTeamActivity : AppCompatActivity() {
                 // value of item that is clicked
                 val itemValue = myListView.getItemAtPosition(position) as String
                 // Toast the values
-                openDialog()
+                openDialog(itemValue)
             }
 
     }
@@ -81,8 +80,10 @@ class StandingTeamActivity : AppCompatActivity() {
         alert.show()
     }
 
-    fun openDialog() {
-        val myDialog : MyDialog = MyDialog()
+    private fun openDialog(itemValue: String) {
+        val myDialog = MyDialog()
+        myDialog.setTexts( presenter.getYearFounded(itemValue).toString(), presenter.getShort(itemValue).toString(),
+            presenter.getStadium(itemValue).toString(), presenter.getColorsClub(itemValue).toString(), presenter.getTeamName(itemValue))
         myDialog.show(supportFragmentManager, "example Dialog")
     }
 }
