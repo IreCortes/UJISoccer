@@ -17,8 +17,6 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
         return  model.standingsManager.getTeamName(pos.toInt() - 1)
     }
 
-
-
     fun getShort(pos : String) : String? {
         return model.teamsManager.getShortName(getTeam(pos))
     }
@@ -45,7 +43,6 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
     }
 
     private fun getTeams(leagueId : Int){
-        Log.d("Mst", "getTeams")
         model.teamsManager.getTeams(leagueId, Listener
         { response ->
             onTeamsAvailable(leagueId, response!!)
