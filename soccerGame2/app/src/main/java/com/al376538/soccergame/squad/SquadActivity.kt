@@ -29,7 +29,7 @@ class SquadActivity : AppCompatActivity() {
 
         presenter = SquadPresenter(this, Model.getInstanceModel(context = applicationContext), teamID.toInt())
 
-        nameCoach.text = presenter.getCoach()
+        //nameCoach.text = presenter.getCoach()
 
     }
 

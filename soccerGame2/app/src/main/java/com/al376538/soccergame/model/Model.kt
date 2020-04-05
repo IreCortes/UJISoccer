@@ -67,7 +67,6 @@ object Model {
     }
     fun reset() {
         teamStandingArray.clear()
-        Log.d("MKT", teamStandingArray.isEmpty().toString())
         teamArray.clear()
-    } 
+    }
 }

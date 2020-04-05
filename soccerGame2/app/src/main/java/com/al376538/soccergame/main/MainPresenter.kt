@@ -10,7 +10,6 @@ class MainPresenter(private var view: MainActivity, private var model: Model) {
 
     init {
         getLeagues()
-        model.reset()
     }
 
     private fun getLeagues() {
@@ -54,5 +53,9 @@ class MainPresenter(private var view: MainActivity, private var model: Model) {
 
     fun setCurrentLeague(name : String) {
         model.mainManager.setCurrentLeague(name)
+    }
+
+    fun reset() {
+        model.reset()
     }
 }
