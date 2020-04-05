@@ -2,14 +2,17 @@ package com.al376538.soccergame.model
 
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room.databaseBuilder
 import com.al376538.soccergame.model.managers.MainManager
 import com.al376538.soccergame.model.database.DAO
 import com.al376538.soccergame.model.database.DataBase
 import com.al376538.soccergame.model.database.League
+import com.al376538.soccergame.model.database.Team
 import com.al376538.soccergame.model.managers.SquadManager
 import com.al376538.soccergame.model.managers.StandingsManager
 import com.al376538.soccergame.model.managers.TeamManager
+import com.al376538.soccergame.standings.TeamInStanding
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
@@ -23,7 +26,10 @@ object Model {
     lateinit var squadManager: SquadManager
 
 
-    val leagueList = ArrayList<League>()
+    internal val leagueList = ArrayList<League>()
+     var teamStandingArray = ArrayList<TeamInStanding>()
+    internal var teamArray = ArrayList<Team>()
+
     lateinit var currentLeague : League
 
 
@@ -49,4 +55,19 @@ object Model {
         model(context)
         return this
     }
+
+    fun getleagueListEmpty(): Boolean {
+        return leagueList.isEmpty()
+    }
+    fun getTeamStandingArrayEmpty(): Boolean {
+        return teamStandingArray.isEmpty()
+    }
+    fun getTeamArray(): Boolean {
+        return teamArray.isEmpty()
+    }
+    fun reset() {
+        teamStandingArray.clear()
+        Log.d("MKT", teamStandingArray.isEmpty().toString())
+        teamArray.clear()
+    } 
 }

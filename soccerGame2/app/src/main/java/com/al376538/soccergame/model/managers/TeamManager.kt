@@ -11,7 +11,7 @@ import org.json.JSONObject
 
 class TeamManager(private var model : Model) {
 
-    var teamArray = ArrayList<Team>()
+
 
     fun getTeams(league : Int, listener: Response.Listener<ArrayList<Team>>) {
         Log.d("Mst", "getTeams")
@@ -71,8 +71,8 @@ class TeamManager(private var model : Model) {
                 val teamObject = Team(idTeam, name, shortName, founded, stadium, clubColors, website, leagueID)
                 teamsArray.add(teamObject)
             }
-            teamArray.addAll(teamsArray)
-            receiveSendTeams(listener, teamArray)
+            model.teamArray.addAll(teamsArray)
+            receiveSendTeams(listener, model.teamArray)
 
         } catch (e: JSONException) {
             Log.d("Error", "JSON TEAM EXCEPTION")
@@ -95,15 +95,15 @@ class TeamManager(private var model : Model) {
     }
 
     fun setTeams(teamArrayList: ArrayList<Team>) {
-        teamArray.addAll(teamArrayList)
+        model.teamArray.addAll(teamArrayList)
     }
 
     fun findTeam(name : String) : Team {
-        for(i in 0 until teamArray.size) {
-            if(name == teamArray[i].name)
-                return teamArray[i]
+        for(i in 0 until model.teamArray.size) {
+            if(name == model.teamArray[i].name)
+                return model.teamArray[i]
         }
-        return teamArray[0]
+        return model.teamArray[0]
     }
 
     fun getShortName(team: Team): String? {

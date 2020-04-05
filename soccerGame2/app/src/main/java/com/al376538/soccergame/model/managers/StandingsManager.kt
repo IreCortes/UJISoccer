@@ -9,7 +9,7 @@ import java.io.IOException
 
 class StandingsManager(private var  model : Model) {
 
-   private var teamStandingArray = ArrayList<TeamInStanding>()
+
 
     //get the teams from webpage
     fun collectStandings(idLeague: Int, listener: Response.Listener<ArrayList<TeamInStanding>>) {
@@ -64,7 +64,7 @@ class StandingsManager(private var  model : Model) {
                     )
                 teamsStandingArray.add(teamStanding)
             }
-            teamStandingArray.addAll(teamsStandingArray)
+            model.teamStandingArray.addAll(teamsStandingArray)
             listener.onResponse(teamsStandingArray as ArrayList<TeamInStanding>)
 
         }catch (e: IOException) {
@@ -73,9 +73,9 @@ class StandingsManager(private var  model : Model) {
     }
 
     fun getPosTeams() : Array<String> {
-        var arrayList : MutableList<String> = ArrayList(teamStandingArray.size)
+        var arrayList : MutableList<String> = ArrayList(model.teamStandingArray.size)
 
-        for(i in teamStandingArray){
+        for(i in model.teamStandingArray){
             arrayList.add(i.position.toString())
         }
 
@@ -83,6 +83,6 @@ class StandingsManager(private var  model : Model) {
     }
 
     fun getTeamName(pos : Int) : String {
-        return teamStandingArray[pos].team.getString("name")
+        return model.teamStandingArray[pos].team.getString("name")
     }
 }

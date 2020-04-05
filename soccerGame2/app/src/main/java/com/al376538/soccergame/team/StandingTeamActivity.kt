@@ -18,7 +18,6 @@ class StandingTeamActivity : AppCompatActivity() {
     private lateinit var presenter: StandingTeamPresenter
     private lateinit var adapter: AdapterListView
     private lateinit var myListView: ListView
-    private lateinit var button : Button
     private lateinit var idTeam : String
 
     companion object {
@@ -35,13 +34,8 @@ class StandingTeamActivity : AppCompatActivity() {
 
 
         myListView = findViewById(R.id.listView)
-        button = findViewById(R.id.prueba)
 
         presenter = StandingTeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
-
-        button.setOnClickListener {
-            openActivity()
-        }
 
         myListView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -49,7 +43,6 @@ class StandingTeamActivity : AppCompatActivity() {
                 val itemValue = myListView.getItemAtPosition(position) as String
                 idTeam = itemValue
                 // Toast the values
-                Log.d("MSK", "Activity $this")
                 openDialog(itemValue)
             }
 
@@ -70,13 +63,6 @@ class StandingTeamActivity : AppCompatActivity() {
         myDialog.setTexts( presenter.getYearFounded(itemValue).toString(), presenter.getShort(itemValue).toString(),
             presenter.getStadium(itemValue).toString(), presenter.getColorsClub(itemValue).toString(), presenter.getTeamName(itemValue))
         myDialog.show(supportFragmentManager, "example Dialog")
-    }
-
-    private fun openActivity() {
-        Log.d("MSK", "OpenActivity")
-        val intent = Intent(this, SquadActivity::class.java)
-        intent.putExtra(TEAM_ID, "57")
-        startActivity(intent)
     }
 
 }

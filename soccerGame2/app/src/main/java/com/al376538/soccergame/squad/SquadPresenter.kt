@@ -18,4 +18,8 @@ class SquadPresenter(private var view: SquadActivity, private var model: Model, 
             }
         )
     }
+
+    fun getCoach() : String {
+        return model.squadManager.getCoach()
+    }
 }

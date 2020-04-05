@@ -7,6 +7,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.jar.Attributes
 
 class SquadManager(private var model: Model) {
 
@@ -37,9 +38,6 @@ class SquadManager(private var model: Model) {
             for(i in 0 until arraySquad.length()) {
                 val squadTeamsJSONObject = arraySquad.getJSONObject(i)
                 val name = squadTeamsJSONObject.getString("name")
-
-                Log.d("MSK", name)
-
                 val position = squadTeamsJSONObject.getString("position")
                 val dateOfBirth = squadTeamsJSONObject.getString("dateOfBirth")
                 val countryOfBirth = squadTeamsJSONObject.getString("countryOfBirth")
@@ -58,8 +56,8 @@ class SquadManager(private var model: Model) {
         }
     }
 
-    fun getCoach(): SquadPlayer {
-        return coach
+    fun getCoach(): String {
+        return coach.name
     }
 
     fun getNames(): Array<String> {

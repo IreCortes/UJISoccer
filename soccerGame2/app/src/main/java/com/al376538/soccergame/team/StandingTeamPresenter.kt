@@ -42,8 +42,13 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
     }
 
     private fun getStandings() {
-        onStandingsAvailable()
-
+        if(model.getTeamStandingArrayEmpty()) {
+            Model.standingsManager.collectStandings(leagueId.toInt(),
+                Listener {
+                    view.setAdapter(it, model.standingsManager.getPosTeams())
+                }
+            )
+        }
     }
 
     private fun getTeams(leagueId : Int){
@@ -51,14 +56,6 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
         { response ->
             onTeamsAvailable(leagueId, response!!)
         })
-    }
-
-    private fun onStandingsAvailable() {
-        Model.standingsManager.collectStandings(leagueId.toInt(),
-            Listener {
-                view.setAdapter(it, model.standingsManager.getPosTeams())
-            }
-        )
     }
 
     private fun onTeamsAvailable(leagueId:Int, teamList: ArrayList<Team>) {

@@ -25,15 +25,16 @@ class SquadActivity : AppCompatActivity() {
         val teamID : String = extra!!.getString(StandingTeamActivity.TEAM_ID)!!
 
         nameCoach = findViewById(R.id.name_coach)
-        Log.d("MSK", "SQUADACTIVITY")
         listView = findViewById(R.id.listViewSquad)
 
         presenter = SquadPresenter(this, Model.getInstanceModel(context = applicationContext), teamID.toInt())
 
+        nameCoach.text = presenter.getCoach()
+
     }
 
     fun setAdapter(array : ArrayList<SquadPlayer>, names: Array<String>) {
-        Log.d("MSK", "setAdapter")
+
         adapter = AdapterListViewSquad(this, array, names)
         listView.adapter = adapter
     }
