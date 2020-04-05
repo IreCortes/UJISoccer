@@ -1,15 +1,15 @@
 package com.al376538.soccergame.team
 
-import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import com.al376538.soccergame.MyDialog
 import com.al376538.soccergame.R
 import com.al376538.soccergame.main.MainActivity.Companion.EXTRA_NAME
 import com.al376538.soccergame.model.Model
+import com.al376538.soccergame.squad.SquadActivity
 import com.al376538.soccergame.standings.AdapterListView
 import com.al376538.soccergame.standings.TeamInStanding
 
@@ -18,26 +18,38 @@ class StandingTeamActivity : AppCompatActivity() {
     private lateinit var presenter: StandingTeamPresenter
     private lateinit var adapter: AdapterListView
     private lateinit var myListView: ListView
+    private lateinit var button : Button
+    private lateinit var idTeam : String
+
+    companion object {
+        const val TEAM_ID = "TEAM_ID"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_standings)
-
-        Log.d("Mst", "OnCreate")
-
+        Log.d("MSK", "onCreate")
         val extra = intent.extras
         val leagueID : String = extra!!.getString(EXTRA_NAME)!!
 
+
         myListView = findViewById(R.id.listView)
+        button = findViewById(R.id.prueba)
 
         presenter = StandingTeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
+
+        button.setOnClickListener {
+            openActivity()
+        }
 
         myListView.onItemClickListener =
             AdapterView.OnItemClickListener { parent, view, position, id ->
                 // value of item that is clicked
                 val itemValue = myListView.getItemAtPosition(position) as String
+                idTeam = itemValue
                 // Toast the values
+                Log.d("MSK", "Activity $this")
                 openDialog(itemValue)
             }
 
@@ -52,38 +64,19 @@ class StandingTeamActivity : AppCompatActivity() {
         myListView.adapter = adapter
     }
 
-    fun showDialog(message : String, title : String) {
-
-        val dialogBuilder = AlertDialog.Builder(this)
-
-        // set message of alert dialog
-        dialogBuilder.setMessage("Do you want to close this application ?")
-            // if the dialog is cancelable
-            .setCancelable(true)
-            // positive button text and action
-            .setPositiveButton("WEB", DialogInterface.OnClickListener {
-                    dialog, id -> finish()
-            })
-            // negative button text and action
-            .setNegativeButton("OKAY", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
-            })
-            .setNeutralButton("NEXT MATCHES", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
-            })
-
-        // create dialog box
-        val alert = dialogBuilder.create()
-        // set title for alert dialog box
-        alert.setTitle(title)
-        // show alert dialog
-        alert.show()
-    }
-
     private fun openDialog(itemValue: String) {
         val myDialog = MyDialog()
+        myDialog.setIdTeam(presenter.getIdTeam(itemValue))
         myDialog.setTexts( presenter.getYearFounded(itemValue).toString(), presenter.getShort(itemValue).toString(),
             presenter.getStadium(itemValue).toString(), presenter.getColorsClub(itemValue).toString(), presenter.getTeamName(itemValue))
         myDialog.show(supportFragmentManager, "example Dialog")
     }
+
+    private fun openActivity() {
+        Log.d("MSK", "OpenActivity")
+        val intent = Intent(this, SquadActivity::class.java)
+        intent.putExtra(TEAM_ID, "57")
+        startActivity(intent)
+    }
+
 }

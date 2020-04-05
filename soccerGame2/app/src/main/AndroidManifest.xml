@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SquadActivity"></activity>
+        <activity android:name=".squad.SquadActivity"></activity>
         <activity android:name=".team.StandingTeamActivity" />
         <activity
             android:name=".main.MainActivity"

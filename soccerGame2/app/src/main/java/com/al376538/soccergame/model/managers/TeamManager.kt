@@ -1,4 +1,4 @@
-package com.al376538.soccergame.team
+package com.al376538.soccergame.model.managers
 
 import android.os.AsyncTask
 import android.util.Log
@@ -28,7 +28,6 @@ class TeamManager(private var model : Model) {
     }
 
     fun collectTeams(league: Int, listener: Response.Listener<ArrayList<Team>>) {
-        Log.d("Mst", "collectTeams")
         val jsonObjectRequest = object : JsonObjectRequest(
             Method.GET,
             "https://api.football-data.org/v2/competitions/$league/teams",
@@ -70,7 +69,6 @@ class TeamManager(private var model : Model) {
                 val stadium : String = teamJSONObject.getString("venue")
 
                 val teamObject = Team(idTeam, name, shortName, founded, stadium, clubColors, website, leagueID)
-                Log.d("Mst", teamObject.toString())
                 teamsArray.add(teamObject)
             }
             teamArray.addAll(teamsArray)
@@ -122,5 +120,9 @@ class TeamManager(private var model : Model) {
 
     fun getClubColors(team : Team) : String? {
         return team.colour
+    }
+
+    fun getId(team : Team) : Int{
+        return team.idTeam
     }
 }

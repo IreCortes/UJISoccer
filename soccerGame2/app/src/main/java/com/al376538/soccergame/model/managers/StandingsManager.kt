@@ -1,6 +1,7 @@
-package com.al376538.soccergame.standings
+package com.al376538.soccergame.model.managers
 
 import com.al376538.soccergame.model.Model
+import com.al376538.soccergame.standings.TeamInStanding
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject

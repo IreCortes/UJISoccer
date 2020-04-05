@@ -3,14 +3,13 @@ package com.al376538.soccergame.model
 
 import android.content.Context
 import androidx.room.Room.databaseBuilder
-import com.al376538.soccergame.main.MainManager
+import com.al376538.soccergame.model.managers.MainManager
 import com.al376538.soccergame.model.database.DAO
 import com.al376538.soccergame.model.database.DataBase
 import com.al376538.soccergame.model.database.League
-import com.al376538.soccergame.model.database.Team
-import com.al376538.soccergame.standings.StandingsManager
-import com.al376538.soccergame.standings.TeamInStanding
-import com.al376538.soccergame.team.TeamManager
+import com.al376538.soccergame.model.managers.SquadManager
+import com.al376538.soccergame.model.managers.StandingsManager
+import com.al376538.soccergame.model.managers.TeamManager
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
@@ -21,6 +20,7 @@ object Model {
     lateinit var mainManager: MainManager
     lateinit var standingsManager: StandingsManager
     lateinit var teamsManager: TeamManager
+    lateinit var squadManager: SquadManager
 
 
     val leagueList = ArrayList<League>()
@@ -38,8 +38,10 @@ object Model {
         dao = database.Dao()
         queue = Volley.newRequestQueue(context)
         mainManager = MainManager(this)
-        standingsManager = StandingsManager(this)
+        standingsManager =
+            StandingsManager(this)
         teamsManager = TeamManager(this)
+        squadManager = SquadManager(this)
     }
 
     //Get an instance of a model

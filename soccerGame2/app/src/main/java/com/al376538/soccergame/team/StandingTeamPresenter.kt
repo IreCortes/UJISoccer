@@ -33,7 +33,11 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
         return model.teamsManager.getClubColors(getTeam(pos))
     }
 
-    fun getTeam(pos : String) : Team{
+    fun getIdTeam(pos : String) : Int {
+        return model.teamsManager.getId(getTeam(pos))
+    }
+
+    private fun getTeam(pos : String) : Team{
         return model.teamsManager.findTeam(getTeamName(pos))
     }
 

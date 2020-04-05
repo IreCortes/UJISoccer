@@ -1,4 +1,4 @@
-package com.al376538.soccergame.main
+package com.al376538.soccergame.model.managers
 
 import android.os.AsyncTask
 import android.util.Log
