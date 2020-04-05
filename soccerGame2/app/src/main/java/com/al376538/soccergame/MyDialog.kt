@@ -78,8 +78,9 @@ class MyDialog : AppCompatDialogFragment() {
     }
 
     private fun openActivity() {
+        Log.d("MSK", requireContext().toString())
         val intent = Intent(this.context, SquadActivity::class.java)
-        intent.putExtra(StandingTeamActivity.TEAM_ID, idTeam.toString())
+        intent.putExtra(StandingTeamActivity.TEAM_ID, idTeam)
         startActivity(intent)
     }
 
