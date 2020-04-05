@@ -29,7 +29,6 @@ class SquadActivity : AppCompatActivity() {
 
         presenter = SquadPresenter(this, Model.getInstanceModel(context = applicationContext), teamID.toInt())
 
-        //nameCoach.text = presenter.getCoach()
 
     }
 
@@ -37,5 +36,9 @@ class SquadActivity : AppCompatActivity() {
 
         adapter = AdapterListViewSquad(this, array, names)
         listView.adapter = adapter
+    }
+
+    fun setCoach(c : String){
+        nameCoach.text = c
     }
 }

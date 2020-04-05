@@ -15,11 +15,9 @@ class SquadPresenter(private var view: SquadActivity, private var model: Model, 
         Model.squadManager.collectSquadPlayer(teamId,
             Response.Listener {
                 view.setAdapter(it, model.squadManager.getNames())
+                view.setCoach(model.squadManager.getCoach())
             }
         )
     }
 
-    fun getCoach() : String {
-        return model.squadManager.getCoach()
-    }
 }
