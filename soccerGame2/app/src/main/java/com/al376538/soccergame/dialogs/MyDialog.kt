@@ -2,8 +2,10 @@ package com.al376538.soccergame.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ class MyDialog : AppCompatDialogFragment() {
     private var _clubColors : String = ""
     private var title : String = ""
     private var idTeam : Int = 0
+    private var url = ""
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -39,7 +42,7 @@ class MyDialog : AppCompatDialogFragment() {
         builder.setView(view).setTitle(title)
             // positive button text and action
             .setPositiveButton("WEB", DialogInterface.OnClickListener {
-                    dialog, id -> dialog.cancel()
+                    dialog, id -> conectWeb()
             })
             // negative button text and action
             .setNegativeButton("OKAY", DialogInterface.OnClickListener {
@@ -76,10 +79,23 @@ class MyDialog : AppCompatDialogFragment() {
         idTeam = id
     }
 
+    fun setURL(url_ : String) {
+        url = url_
+    }
+
     private fun openActivity() {
         val intent = Intent(this.context, SquadActivity::class.java)
         intent.putExtra(StandingTeamActivity.TEAM_ID, idTeam.toString())
         startActivity(intent)
+    }
+
+    private fun conectWeb() {
+        try {
+            val webpage: Uri = Uri.parse(url)
+            val myIntent = Intent(Intent.ACTION_VIEW, webpage)
+            startActivity(myIntent)
+        } catch (e: ActivityNotFoundException) {
+        }
     }
 
 }

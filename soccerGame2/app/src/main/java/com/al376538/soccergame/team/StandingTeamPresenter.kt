@@ -17,24 +17,28 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
         return  model.standingsManager.getTeamName(pos.toInt() - 1)
     }
 
-    fun getShort(pos : String) : String? {
+    fun getShort(pos: String) : String? {
         return model.teamsManager.getShortName(getTeam(pos))
     }
 
-    fun getYearFounded(pos : String) : String? {
+    fun getYearFounded(pos: String) : String? {
         return model.teamsManager.getFoundedYear(getTeam(pos))
     }
 
-    fun getStadium(pos : String) : String? {
+    fun getStadium(pos: String) : String? {
         return model.teamsManager.getStadium(getTeam(pos))
     }
 
-    fun getColorsClub(pos : String) : String? {
+    fun getColorsClub(pos: String) : String? {
         return model.teamsManager.getClubColors(getTeam(pos))
     }
 
-    fun getIdTeam(pos : String) : Int {
+    fun getIdTeam(pos: String) : Int {
         return model.teamsManager.getId(getTeam(pos))
+    }
+
+    fun getURL(pos: String): String? {
+        return model.teamsManager.getURL(getTeam(pos))
     }
 
     private fun getTeam(pos : String) : Team{
