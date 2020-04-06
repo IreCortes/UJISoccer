@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import com.al376538.soccergame.MyDialog
 import com.al376538.soccergame.R
@@ -18,7 +19,8 @@ class StandingTeamActivity : AppCompatActivity() {
     private lateinit var presenter: StandingTeamPresenter
     private lateinit var adapter: AdapterListView
     private lateinit var myListView: ListView
-    private lateinit var idTeam : String
+    private lateinit var idTeam: String
+    private lateinit var progressBar: ProgressBar
 
     companion object {
         const val TEAM_ID = "TEAM_ID"
@@ -28,12 +30,18 @@ class StandingTeamActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_standings)
-        Log.d("MSK", "onCreate")
+
         val extra = intent.extras
         val leagueID : String = extra!!.getString(EXTRA_NAME)!!
 
+        progressBar = findViewById(R.id.progressBar)
+        //progressBar.visibility = View.VISIBLE
 
         myListView = findViewById(R.id.listView)
+        var array = ArrayList<TeamInStanding>()
+        var positions = ArrayList<String>()
+        adapter = AdapterListView(this, array, positions.toTypedArray())
+        myListView.adapter = adapter
 
         presenter = StandingTeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
 
@@ -48,13 +56,14 @@ class StandingTeamActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
     fun setAdapter(array : ArrayList<TeamInStanding>, positions: Array<String>) {
-        adapter = AdapterListView(
-            this,
-            array,
-            positions
-        )
+        adapter = AdapterListView(this, array, positions)
         myListView.adapter = adapter
+        progressBar.visibility = View.GONE
     }
 
     private fun openDialog(itemValue: String) {
