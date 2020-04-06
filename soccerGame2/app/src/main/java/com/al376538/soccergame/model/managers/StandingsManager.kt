@@ -85,4 +85,8 @@ class StandingsManager(private var  model : Model) {
     fun getTeamName(pos : Int) : String {
         return model.teamStandingArray[pos].team.getString("name")
     }
+
+    fun getstandings() : ArrayList<TeamInStanding> {
+        return  model.teamStandingArray
+    }
 }

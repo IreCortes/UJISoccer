@@ -38,10 +38,6 @@ class StandingTeamActivity : AppCompatActivity() {
         //progressBar.visibility = View.VISIBLE
 
         myListView = findViewById(R.id.listView)
-        var array = ArrayList<TeamInStanding>()
-        var positions = ArrayList<String>()
-        adapter = AdapterListView(this, array, positions.toTypedArray())
-        myListView.adapter = adapter
 
         presenter = StandingTeamPresenter(this, Model.getInstanceModel(context = applicationContext), leagueID)
 

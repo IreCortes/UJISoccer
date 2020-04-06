@@ -89,6 +89,7 @@ class MainManager(private var model : Model) {
         object : AsyncTask<Void?, Void?, Void?>() {
             override fun doInBackground(vararg params: Void?): Void? {
                 model.dao.insertLeague(leagueArrayList)
+
                 return null
             }
 

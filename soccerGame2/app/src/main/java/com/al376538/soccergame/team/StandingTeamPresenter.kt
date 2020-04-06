@@ -49,6 +49,9 @@ class StandingTeamPresenter(private var view: StandingTeamActivity, private var 
                 }
             )
         }
+        else {
+            view.setAdapter(model.standingsManager.getstandings(), model.standingsManager.getPosTeams())
+        }
     }
 
     private fun getTeams(leagueId : Int){
