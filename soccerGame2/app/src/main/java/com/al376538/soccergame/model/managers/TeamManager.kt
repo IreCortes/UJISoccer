@@ -100,7 +100,7 @@ class TeamManager(private var model : Model) {
         model.teamArray.addAll(teamArrayList)
     }
 
-    fun findTeam(name : String): Team {
+    fun findTeam(name : String) : Team {
         for(i in 0 until model.teamArray.size) {
             if(name == model.teamArray[i].name)
                 return model.teamArray[i]
@@ -116,19 +116,15 @@ class TeamManager(private var model : Model) {
         return team.yearFoundation.toString()
     }
 
-    fun getStadium(team : Team): String? {
+    fun getStadium(team : Team) : String? {
         return team.stadium
     }
 
-    fun getClubColors(team : Team): String? {
+    fun getClubColors(team : Team) : String? {
         return team.colour
     }
 
-    fun getId(team : Team): Int{
+    fun getId(team : Team) : Int{
         return team.idTeam
-    }
-
-    fun getURL(team: Team): String? {
-        return team.website
     }
 }
