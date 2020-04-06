@@ -60,11 +60,13 @@ class TeamManager(private var model : Model) {
                 val name : String = teamJSONObject.getString("name")
                 val shortName : String = teamJSONObject.getString("shortName")
                 val website : String = teamJSONObject.getString("website")
-                val founded : Int
-                if(teamJSONObject.getInt("founded") == null)
-                    founded = 0
-                else
+                var founded : Int
+                founded = 0
+                try{
                     founded = teamJSONObject.getInt("founded")
+                }catch (e : JSONException) {
+                }
+
                 val clubColors : String = teamJSONObject.getString("clubColors")
                 val stadium : String = teamJSONObject.getString("venue")
 

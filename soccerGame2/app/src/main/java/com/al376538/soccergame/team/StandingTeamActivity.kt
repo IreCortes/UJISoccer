@@ -1,16 +1,13 @@
 package com.al376538.soccergame.team
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
-import com.al376538.soccergame.MyDialog
+import com.al376538.soccergame.dialogs.MyDialog
 import com.al376538.soccergame.R
 import com.al376538.soccergame.main.MainActivity.Companion.EXTRA_NAME
 import com.al376538.soccergame.model.Model
-import com.al376538.soccergame.squad.SquadActivity
 import com.al376538.soccergame.standings.AdapterListView
 import com.al376538.soccergame.standings.TeamInStanding
 

@@ -42,7 +42,12 @@ class SquadManager(private var model: Model) {
                 val dateOfBirth = squadTeamsJSONObject.getString("dateOfBirth")
                 val countryOfBirth = squadTeamsJSONObject.getString("countryOfBirth")
                 val nationality = squadTeamsJSONObject.getString("nationality")
-                val player = SquadPlayer(name, position, dateOfBirth, countryOfBirth, nationality)
+                var shirtnumber : String = "-"
+                try{
+                    shirtnumber = squadTeamsJSONObject.getInt("shirtNumber").toString()
+                }catch(e : JSONException) { }
+
+                val player = SquadPlayer(name, position, dateOfBirth, countryOfBirth, nationality, shirtnumber)
 
                 if(squadTeamsJSONObject.getString("role") == "COACH"){
                     coach = player
