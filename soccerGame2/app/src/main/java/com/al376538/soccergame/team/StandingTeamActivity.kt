@@ -62,6 +62,7 @@ class StandingTeamActivity : AppCompatActivity() {
     private fun openDialog(itemValue: String) {
         val myDialog = MyDialog()
         myDialog.setIdTeam(presenter.getIdTeam(itemValue))
+        myDialog.setURL(presenter.getURL(itemValue).toString())
         myDialog.setTexts( presenter.getYearFounded(itemValue).toString(), presenter.getShort(itemValue).toString(),
             presenter.getStadium(itemValue).toString(), presenter.getColorsClub(itemValue).toString(), presenter.getTeamName(itemValue))
         myDialog.show(supportFragmentManager, "example Dialog")

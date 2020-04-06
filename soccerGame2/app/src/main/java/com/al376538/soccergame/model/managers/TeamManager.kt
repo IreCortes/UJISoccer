@@ -127,4 +127,8 @@ class TeamManager(private var model : Model) {
     fun getId(team : Team) : Int{
         return team.idTeam
     }
+
+    fun getURL(team: Team) : String? {
+        return team.website
+    }
 }
