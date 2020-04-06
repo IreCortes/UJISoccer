@@ -2,10 +2,11 @@ package com.al376538.soccergame.squad
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.TextView
 import com.al376538.soccergame.R
+import com.al376538.soccergame.dialogs.PlayerDialog
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.team.StandingTeamActivity
 
@@ -20,7 +21,6 @@ class SquadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_squad)
 
-
         val extra = intent.extras
         val teamID : String = extra!!.getString(StandingTeamActivity.TEAM_ID)!!
 
@@ -29,7 +29,24 @@ class SquadActivity : AppCompatActivity() {
 
         presenter = SquadPresenter(this, Model.getInstanceModel(context = applicationContext), teamID.toInt())
 
+        listView.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                // value of item that is clicked
+                val itemValue = listView.getItemAtPosition(position)
+                // Toast the values
+                openDialog(itemValue.toString())
+            }
+    }
 
+    private fun openDialog(itemValue:String) {
+        val myDialog = PlayerDialog()
+        myDialog.setText(
+            presenter.getA(itemValue),
+            presenter.getB(itemValue),
+            presenter.getC(itemValue),
+            presenter.getD(itemValue)
+        )
+        myDialog.show(supportFragmentManager, "Dialog")
     }
 
     fun setAdapter(array : ArrayList<SquadPlayer>, names: Array<String>) {

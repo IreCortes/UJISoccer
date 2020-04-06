@@ -72,4 +72,25 @@ class SquadManager(private var model: Model) {
         }
         return arrayNames.toTypedArray()
     }
+
+    fun getPlayer(pos: String): SquadPlayer{
+       for(i in 0 until arrayPlayer.size) {
+               if(arrayPlayer[i].name == pos)
+               return arrayPlayer[i]
+       }
+        return arrayPlayer[0]
+    }
+
+    fun getDateBirthDay(player: SquadPlayer) : String {
+        return player.dateBirthday
+    }
+    fun getcountryBirthDay(player: SquadPlayer) : String {
+        return player.countryBirthday
+    }
+    fun getNationality(player: SquadPlayer) : String {
+        return player.nationality
+    }
+    fun getNumber(player: SquadPlayer) : String {
+        return player.shirtNumber
+    }
 }
