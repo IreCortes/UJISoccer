@@ -1,6 +1,5 @@
 package com.al376538.soccergame.main
 
-import android.util.Log
 import com.al376538.soccergame.model.Model
 import com.al376538.soccergame.model.database.League
 import com.android.volley.Response.Listener
